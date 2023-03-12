@@ -118,4 +118,8 @@ export class BranchDetailPage extends PageBase {
         }
     }
 
+    saveChange(publishEventCode?: any): Promise<unknown> {
+        return this.saveChange2();
+    }
+
 }
