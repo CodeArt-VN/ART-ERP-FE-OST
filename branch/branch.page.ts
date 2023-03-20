@@ -33,7 +33,7 @@ export class BranchPage extends PageBase {
 
     loadData(event){
         this.query.Id = this.env.selectedBranchAndChildren;
-        super.loadData();
+        super.loadData(event);
     }
 
     loadedData(event) {
