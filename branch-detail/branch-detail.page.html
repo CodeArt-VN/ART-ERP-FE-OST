@@ -33,11 +33,11 @@
                     </div>
 
                     <div class="c-control">
-                        <label class="c-label" for="IDType">{{'erp.app.pages.ost.branch.id-type' | translate}}
-                            <span *ngIf="!formGroup.controls.IDType.valid && !formGroup.controls.IDType.pending && (formGroup.controls.IDType.dirty || submitAttempt)" ion-text color="danger">(*)</span>
+                        <label class="c-label" for="Type">{{'erp.app.pages.ost.branch.id-type' | translate}}
+                            <span *ngIf="!formGroup.controls.Type.valid && !formGroup.controls.Type.pending && (formGroup.controls.Type.dirty || submitAttempt)" ion-text color="danger">(*)</span>
                         </label>
 
-                        <select class="c-input c-dropdown" formControlName="IDType" >
+                        <select class="c-input c-dropdown" formControlName="Type" >
                             <option *ngFor="let t of typeList" [value]="t.Id">{{t.Name}}</option>
                         </select>
                     </div>
@@ -70,7 +70,7 @@
                         <input class="c-input" id="Code" formControlName="Code" type="text">
                     </div>
 
-                    <div class="c-control" *ngIf="item.IDType == 119">
+                    <div class="c-control" *ngIf="item.Type == 'TitlePosition'">
                         <label class="c-label" for="IDAdministrationManager">{{'erp.app.pages.ost.branch.is-administration-manager' | translate}}
                             <span *ngIf="!formGroup.controls.IDAdministrationManager.valid && !formGroup.controls.IDAdministrationManager.pending && (formGroup.controls.IDAdministrationManager.dirty || submitAttempt)" ion-text color="danger">(*)</span>
                         </label>
@@ -80,7 +80,7 @@
                         </select>
                     </div>
 
-                    <div class="c-control" *ngIf="item.IDType == 119">
+                    <div class="c-control" *ngIf="item.Type == 'TitlePosition'">
                         <label class="c-label" for="IDSpecializedManagement">{{'erp.app.pages.ost.branch.id-specialized-management' | translate}}
                             <span *ngIf="!formGroup.controls.IDSpecializedManagement.valid && !formGroup.controls.IDSpecializedManagement.pending && (formGroup.controls.IDSpecializedManagement.dirty || submitAttempt)" ion-text color="danger">(*)</span>
                         </label>
@@ -90,7 +90,7 @@
                         </select>
                     </div>
 
-                    <div class="c-control" *ngIf="item.IDType == 119">
+                    <div class="c-control" *ngIf="item.Type == 'TitlePosition'">
                         <input [readonly]="!(pageConfig.canEdit || pageConfig.canAdd)" class="c-checkbox" id="IsHeadOfDepartment" formControlName="IsHeadOfDepartment" type="checkbox">
                         <label class="c-label checkbox" for="IsHeadOfDepartment">{{'erp.app.pages.ost.branch.is-head-of-department' | translate}}
                             <span *ngIf="!formGroup.controls.IsHeadOfDepartment.valid && !formGroup.controls.IsHeadOfDepartment.pending && (formGroup.controls.IsHeadOfDepartment.dirty || submitAttempt)" ion-text color="danger">(*)</span>
@@ -98,28 +98,28 @@
                     </div>
 
 
-                    <div class="c-control" *ngIf="item.IDType == 111 || item.IDType == 112">
+                    <div class="c-control" *ngIf="item.Type == 'Company' || item.Type == 'Branch'">
                         <label class="c-label" for="BusinessRegistrationNumber">{{'erp.app.pages.ost.branch.business-registration-number' | translate}}
                             <span *ngIf="!formGroup.controls.BusinessRegistrationNumber.valid && !formGroup.controls.BusinessRegistrationNumber.pending && (formGroup.controls.BusinessRegistrationNumber.dirty || submitAttempt)" ion-text color="danger">(*)</span>
                         </label>
                         <input class="c-input" id="BusinessRegistrationNumber" formControlName="BusinessRegistrationNumber" type="text">
                     </div>
                     
-                    <div class="c-control" *ngIf="item.IDType == 111 || item.IDType == 112">
+                    <div class="c-control" *ngIf="item.Type == 'Company' || item.Type == 'Branch'">
                         <label class="c-label" for="IssueDate">{{'erp.app.pages.ost.branch.issue-date' | translate}}
                             <span *ngIf="!formGroup.controls.IssueDate.valid && !formGroup.controls.IssueDate.pending && (formGroup.controls.IssueDate.dirty || submitAttempt)" ion-text color="danger">(*)</span>
                         </label>
                         <input class="c-input" id="IssueDate" formControlName="IssueDate" type="date">
                     </div>
 
-                    <div class="c-control" *ngIf="item.IDType == 111 || item.IDType == 112">
+                    <div class="c-control" *ngIf="item.Type == 'Company' || item.Type == 'Branch'">
                         <label class="c-label" for="IssuedBy">{{'erp.app.pages.ost.branch.issue-by' | translate}}
                             <span *ngIf="!formGroup.controls.IssuedBy.valid && !formGroup.controls.IssuedBy.pending && (formGroup.controls.IssuedBy.dirty || submitAttempt)" ion-text color="danger">(*)</span>
                         </label>
                         <input class="c-input" id="IssuedBy" formControlName="IssuedBy" type="text">
                     </div>
 
-                    <div class="c-control" *ngIf="item.IDType == 111 || item.IDType == 112">
+                    <div class="c-control" *ngIf="item.Type == 'Company' || item.Type == 'Branch'">
                         <label class="c-label" for="TaxCode">{{'erp.app.pages.ost.branch.tax-code' | translate}}
                             <span *ngIf="!formGroup.controls.TaxCode.valid && !formGroup.controls.TaxCode.pending && (formGroup.controls.TaxCode.dirty || submitAttempt)" ion-text color="danger">(*)</span>
                         </label>
@@ -151,21 +151,21 @@
                         <input class="c-input" id="Email" formControlName="Email" type="text">
                     </div>
 
-                    <div class="c-control" *ngIf="item.IDType == 111 || item.IDType == 112 || item.IDType == 113 || item.IDType == 115 ">
+                    <div class="c-control" *ngIf="item.Type == 'Company' || item.Type == 'Branch' || item.Type == 'OfficeCenter' || item.Type == 'Warehouse' ">
                         <label class="c-label" for="Address">{{'erp.app.pages.ost.branch.address' | translate}}
                             <span *ngIf="!formGroup.controls.Address.valid && !formGroup.controls.Address.pending && (formGroup.controls.Address.dirty || submitAttempt)" ion-text color="danger">(*)</span>
                         </label>
                         <input class="c-input" id="Address" formControlName="Address" type="text">
                     </div>
 
-                    <div class="c-control" *ngIf="item.IDType == 112 || item.IDType == 113 || item.IDType == 115 ">
+                    <div class="c-control" *ngIf="item.Type == 'Branch' || item.Type == 'OfficeCenter' || item.Type == 'Warehouse' ">
                         <label class="c-label" for="TemplateHeader">{{'erp.app.pages.ost.branch.template-header' | translate}}
                             <span *ngIf="!formGroup.controls.TemplateHeader.valid && !formGroup.controls.TemplateHeader.pending && (formGroup.controls.TemplateHeader.dirty || submitAttempt)" ion-text color="danger">(*)</span>
                         </label>
                         <input class="c-input" id="TemplateHeader" formControlName="TemplateHeader" type="text">
                     </div>
 
-                    <div class="c-control" *ngIf="!(item.IDType == 116 || item.IDType == 119)">
+                    <div class="c-control" *ngIf="!(item.Type == 'Team' || item.Type == 'TitlePosition')">
                         <label class="c-label" for="LogoURL">{{'erp.app.pages.ost.branch.logo-url' | translate}}
                             <span *ngIf="!formGroup.controls.LogoURL.valid && !formGroup.controls.LogoURL.pending && (formGroup.controls.LogoURL.dirty || submitAttempt)" ion-text color="danger">(*)</span>
                         </label>
@@ -181,7 +181,7 @@
                     
                     <div class="c-control ion-text-right" *ngIf="!item.Id && (pageConfig.canAdd || pageConfig.canEditBranch)">
                         <label class="c-label" for=""></label>
-                        <ion-button (click)="saveChange()">{{'erp.app.pages.ost.branch.add' | translate}} {{ item.IDType == 119? 'erp.app.pages.ost.branch.jobtitle' : 'erp.app.pages.ost.branch.department' | translate}}</ion-button>
+                        <ion-button (click)="saveChange()">{{'erp.app.pages.ost.branch.add' | translate}} {{ item.Type == 'TitlePosition'? 'erp.app.pages.ost.branch.jobtitle' : 'erp.app.pages.ost.branch.department' | translate}}</ion-button>
                     </div>
                     <div class="c-control ion-text-right" *ngIf="item.Id">
                         <ion-button *ngIf="pageConfig.canEdit || pageConfig.canEditBranch" (click)="saveChange()" [disabled]="!formGroup.dirty">{{'erp.app.pages.ost.branch.save' | translate}}</ion-button>

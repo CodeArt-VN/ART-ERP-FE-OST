@@ -51,46 +51,30 @@ export class BranchPage extends PageBase {
 
 
     getBranchType(branch) {
-        if (branch.IDType == 111) {
-            branch.Type = 'Tổng công ty / Công ty';
+        if (branch.Type == 'Company') {
             branch.Icon = 'city';
         }
-        else if (branch.IDType == 112) {
-            branch.Type = 'Chi nhánh';
+        else if (branch.Type == 'Branch') {
             branch.Icon = 'landmark';
         }
-        else if (branch.IDType == 113) {
-            branch.Type = 'Văn phòng / Trung tâm';
+        else if (branch.Type == 'OfficeCenter') {
             branch.Icon = 'business';
         }
-        else if (branch.IDType == 114) {
-            branch.Type = 'Phòng ban';
+        else if (branch.Type == 'Department') {
             branch.Icon = 'sitemap';
         }
-        else if (branch.IDType == 115) {
-            branch.Type = 'Kho hàng / Phân xưởng';
+        else if (branch.Type == 'Warehouse') {
             branch.Icon = 'warehouse';
         }
-        else if (branch.IDType == 116) {
-            branch.Type = 'Nhóm / Tổ / Đội';
+        else if (branch.Type == 'Team') {
             branch.Icon = 'people';
         }
-        else if (branch.IDType == 119) {
-            branch.Type = 'Chức danh';
+        else if (branch.Type == 'TitlePosition') {
             branch.Icon = 'user-tie';
         }
         else {
-            branch.Type = '???';
             branch.Icon = '';
         }
-        /* 
-        0: Tổng công ty, 
-        1: Chi nhánh (đơn vị trực thuộc tổng công ty), 
-        2: Văn phòng / trung tâm (đơn vị trực thuộc của chi nhánh / công ty),
-        3: Phòng ban (đơn vị trực thuộc của 0,1,2),
-        4: Kho hàng / Phân xưởng (đơn vị trực thuộc của 0,1,2), 
-        5: Nhóm/Tổ/Đội (trực thuộc của 3,4)
-        */
     }
 
     toggleRowAll() {

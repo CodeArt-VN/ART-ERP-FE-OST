@@ -16,13 +16,13 @@ import { lib } from 'src/app/services/static/global-functions';
 export class BranchDetailPage extends PageBase {
     formGroup: FormGroup;
     typeList = [
-        {Id: 111, Name: 'Tổng công ty / Công ty'},
-        {Id: 112, Name: 'Chi nhánh (đơn vị trực thuộc tổng công ty)'},
-        {Id: 113, Name: 'Văn phòng / trung tâm (đơn vị trực thuộc của chi nhánh / công ty)'},
-        {Id: 114, Name: 'Phòng ban (đơn vị trực thuộc của 0,1,2)'},
-        {Id: 115, Name: 'Kho hàng / Phân xưởng (đơn vị trực thuộc của 0,1,2)'},
-        {Id: 116, Name: 'Nhóm/Tổ/Đội (trực thuộc của 3,4)'},
-        {Id: 119, Name: 'Chức danh'},
+        // {Id: 111, Name: 'Tổng công ty / Công ty'},
+        // {Id: 112, Name: 'Chi nhánh (đơn vị trực thuộc tổng công ty)'},
+        // {Id: 113, Name: 'Văn phòng / trung tâm (đơn vị trực thuộc của chi nhánh / công ty)'},
+        // {Id: 114, Name: 'Phòng ban (đơn vị trực thuộc của 0,1,2)'},
+        // {Id: 115, Name: 'Kho hàng / Phân xưởng (đơn vị trực thuộc của 0,1,2)'},
+        // {Id: 116, Name: 'Nhóm/Tổ/Đội (trực thuộc của 3,4)'},
+        // {Id: 119, Name: 'Chức danh'},
     ];
 
     constructor(
@@ -43,7 +43,7 @@ export class BranchDetailPage extends PageBase {
         this.id = this.route.snapshot.paramMap.get('id');
         this.formGroup = formBuilder.group({
             IDParent: [''],
-            IDType: [''],
+            Type: ['', Validators.required],
             Id: [''],
             Code: [''],
             Name: ['', Validators.required],
@@ -80,6 +80,10 @@ export class BranchDetailPage extends PageBase {
         if(this.pageConfig.canEditBranch){
             this.pageConfig.canEdit = true;
         }
+
+        this.env.getType('OST').then(data=>{
+            this.typeList = data;
+        })
 
         if(this.navParams){
             this.branchList = JSON.parse(JSON.stringify(this.navParams.data.items));
