@@ -126,25 +126,25 @@
                         <input class="c-input" id="TaxCode" formControlName="TaxCode" type="text">
                     </div>
 
-                    <div class="c-control" *ngIf="item.IDType != 119 ">
+                    <div class="c-control" *ngIf="item.Type != 'TitlePosition' ">
                         <label class="c-label" for="Phone" >{{'erp.app.pages.ost.branch.phone' | translate}}
                             <span *ngIf="!formGroup.controls.Phone.valid && !formGroup.controls.Phone.pending && (formGroup.controls.Phone.dirty || submitAttempt)" ion-text color="danger">(*)</span>
                         </label>
                         <input class="c-input" id="Phone" formControlName="Phone" type="text">
                     </div>
-                    <div class="c-control" *ngIf="item.IDType != 119 ">
+                    <div class="c-control" *ngIf="item.Type != 'TitlePosition' ">
                         <label class="c-label" for="Phone2" >{{'erp.app.pages.ost.branch.phone2' | translate}}
                             <span *ngIf="!formGroup.controls.Phone2.valid && !formGroup.controls.Phone2.pending && (formGroup.controls.Phone2.dirty || submitAttempt)" ion-text color="danger">(*)</span>
                         </label>
                         <input class="c-input" id="Phone2" formControlName="Phone2" type="text">
                     </div>
-                    <div class="c-control" *ngIf="item.IDType != 119 ">
+                    <div class="c-control" *ngIf="item.Type != 'TitlePosition' ">
                         <label class="c-label" for="Fax" >{{'erp.app.pages.ost.branch.fax' | translate}}
                             <span *ngIf="!formGroup.controls.Fax.valid && !formGroup.controls.Fax.pending && (formGroup.controls.Fax.dirty || submitAttempt)" ion-text color="danger">(*)</span>
                         </label>
                         <input class="c-input" id="Fax" formControlName="Fax" type="text">
                     </div>
-                    <div class="c-control" *ngIf="item.IDType != 119 ">
+                    <div class="c-control" *ngIf="item.Type != 'TitlePosition' ">
                         <label class="c-label" for="Email" >{{'erp.app.pages.ost.branch.email' | translate}}
                             <span *ngIf="!formGroup.controls.Email.valid && !formGroup.controls.Email.pending && (formGroup.controls.Email.dirty || submitAttempt)" ion-text color="danger">(*)</span>
                         </label>
