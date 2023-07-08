@@ -38,7 +38,7 @@
                         </label>
 
                         <select class="c-input c-dropdown" formControlName="Type" >
-                            <option *ngFor="let t of typeList" [value]="t.Id">{{t.Name}}</option>
+                            <option *ngFor="let t of typeList" [value]="t.Code">{{t.Name}}</option>
                         </select>
                     </div>
                     
@@ -63,7 +63,7 @@
             <ion-row>
                 <ion-col>
                     <div class="c-control">
-                        <label class="c-label" for="Code">{{'erp.app.pages.ost.branch.union-code' | translate}}
+                        <label class="c-label" for="Code">{{'Code' | translate}}
                             <span *ngIf="!formGroup.controls.Code.valid && !formGroup.controls.Code.pending && (formGroup.controls.Code.dirty || submitAttempt)" ion-text color="danger">(*)</span>
                         </label>
 
