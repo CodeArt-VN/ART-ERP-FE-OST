@@ -103,8 +103,6 @@ export class BranchPage extends PageBase {
     add() {
         let newItem = {
             Id: 0,
-            IsDisabled: false,
-            IDType: 10,
             IDParent: this.lastIDParent
         };
         this.showModal(newItem);

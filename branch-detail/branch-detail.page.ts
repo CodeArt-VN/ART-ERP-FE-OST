@@ -112,6 +112,9 @@ export class BranchDetailPage extends PageBase {
             i.IssueDate = i.IssueDate? lib.dateFormat(i.IssueDate, 'yyyy-mm-dd') : '';
         });
         super.loadedData();
+        if (!this.item.Id ) {
+            this.formGroup.get('IDParent').markAsDirty();
+        }
     }
     
     removeCurrentNode(){
