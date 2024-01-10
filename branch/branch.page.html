@@ -54,7 +54,7 @@
 						<span class="clickable" (click)="showModal(i)">
 							<ion-text *ngIf="i.Code" color="primary">{{i.Code}}</ion-text>
 							{{i.Name}} <span *ngIf="i.ShortName"> - {{i.ShortName}}</span>
-							<span *ngIf="i.IsDisabled"> - <ion-icon class="min-btn"  name="lock-closed"></ion-icon></span>
+							<span *ngIf="i.IsDisabled"> - <ion-icon color="warning" class="min-btn"  name="archive"></ion-icon></span>
 						</span>
 					</div>
 				</div>
