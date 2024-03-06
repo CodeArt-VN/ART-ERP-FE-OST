@@ -10,7 +10,7 @@ describe('BranchPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [BranchPage],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(BranchPage);

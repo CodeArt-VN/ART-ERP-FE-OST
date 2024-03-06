@@ -1,50 +1,71 @@
 <ion-header>
-    <app-detail-toolbar [page]="this"></app-detail-toolbar>
+  <app-detail-toolbar [page]="this"></app-detail-toolbar>
 </ion-header>
 
 <ion-content appScrollbarTheme class="ion-padding">
-    <div class="main-view" *ngIf="item && pageConfig.showSpinner==false">
-        
-        <div class="row-full shadow full-screen">
-            <div class="ion-padding">
-                <ion-grid fixed>
-                    <form [formGroup]="formGroup">
-                        <ion-row class="hr-group">
-                            <ion-col size="12" size-sm="12" size-md="12" size-xl="3">
-                                <ion-list-header class="ion-no-padding">
-                                    <ion-label color="primary">{{'erp.app.pages.ost.office.general-information' | translate}}</ion-label>
-                                </ion-list-header>
-                            </ion-col>
-                            <ion-col size="12" size-sm size-xl="4">
-                               
-                                <div class="c-control">
-                                    <label class="c-label" for="Code">{{'erp.app.pages.ost.office.code' | translate}} <small *ngIf="item.Id">Id: {{item.Id}}</small>
-                                        <span *ngIf="!formGroup.controls.Code.valid && !formGroup.controls.Code.pending && (formGroup.controls.Code.dirty || submitAttempt)" ion-text color="danger">(*)</span>
-                                    </label>
-                                    <input (change)="saveChange()" class="c-input" id="Code" formControlName="Code" type="text">
-                                </div>
-                                <div class="c-control">
-                                    <label class="c-label" for="Name">{{'erp.app.pages.ost.office.name' | translate}}
-                                        <span *ngIf="!formGroup.controls.Name.valid && !formGroup.controls.Name.pending && (formGroup.controls.Name.dirty || submitAttempt)" ion-text color="danger">(*)</span>
-                                    </label>
-                                    <input class="c-input" id="Name" (change)="saveChange();" formControlName="Name" type="text">
-                                </div>
-
-                            </ion-col>
-                            <ion-col size="12" size-sm size-xl="4">
-                                <div class="c-control">
-                                    <label class="c-label" for="Remark">{{'erp.app.pages.ost.office.remark' | translate}}
-                                        <span *ngIf="!formGroup.controls.Remark.valid && !formGroup.controls.Remark.pending && (formGroup.controls.Remark.dirty || submitAttempt)" ion-text color="danger">(*)</span>
-                                    </label>
-                                    <textarea rows="3" class="c-input remark" id="Remark" formControlName="Remark" type="textarea"></textarea>
-                                </div>
-
-                            </ion-col>
-                        </ion-row>
-                    </form>
-                </ion-grid>
-            </div>
-        </div>
+  <div class="main-view" *ngIf="item && pageConfig.showSpinner==false">
+    <div class="row-full shadow full-screen">
+      <div class="ion-padding">
+        <ion-grid fixed>
+          <form [formGroup]="formGroup">
+            <ion-row class="hr-group">
+              <ion-col size="12" size-sm="12" size-md="12" size-xl="3">
+                <ion-list-header class="ion-no-padding">
+                  <ion-label color="primary">{{'General information' | translate}}</ion-label>
+                </ion-list-header>
+              </ion-col>
+              <ion-col size="12" size-sm size-xl="4">
+                <div class="c-control">
+                  <label class="c-label" for="Code"
+                    >{{'Code' | translate}}
+                    <small *ngIf="item.Id">Id: {{item.Id}}</small>
+                    <span
+                      *ngIf="!formGroup.controls.Code.valid && !formGroup.controls.Code.pending && (formGroup.controls.Code.dirty || submitAttempt)"
+                      ion-text
+                      color="danger"
+                      >(*)</span
+                    >
+                  </label>
+                  <input (change)="saveChange()" class="c-input" id="Code" formControlName="Code" type="text" />
+                </div>
+                <div class="c-control">
+                  <label class="c-label" for="Name"
+                    >{{'Name' | translate}}
+                    <span
+                      *ngIf="!formGroup.controls.Name.valid && !formGroup.controls.Name.pending && (formGroup.controls.Name.dirty || submitAttempt)"
+                      ion-text
+                      color="danger"
+                      >(*)</span
+                    >
+                  </label>
+                  <input class="c-input" id="Name" (change)="saveChange();" formControlName="Name" type="text" />
+                </div>
+              </ion-col>
+              <ion-col size="12" size-sm size-xl="4">
+                <div class="c-control">
+                  <label class="c-label" for="Remark"
+                    >{{'Description' | translate}}
+                    <span
+                      *ngIf="!formGroup.controls.Remark.valid && !formGroup.controls.Remark.pending && (formGroup.controls.Remark.dirty || submitAttempt)"
+                      ion-text
+                      color="danger"
+                      >(*)</span
+                    >
+                  </label>
+                  <textarea
+                    rows="3"
+                    class="c-input remark"
+                    id="Remark"
+                    formControlName="Remark"
+                    type="textarea"
+                  ></textarea>
+                </div>
+              </ion-col>
+            </ion-row>
+          </form>
+        </ion-grid>
+      </div>
     </div>
-    <app-page-message [itemsLength]="item? 1: 0" [showSpinner]="pageConfig.showSpinner"></app-page-message>
+  </div>
+  <app-page-message [itemsLength]="item? 1: 0" [showSpinner]="pageConfig.showSpinner"></app-page-message>
 </ion-content>
