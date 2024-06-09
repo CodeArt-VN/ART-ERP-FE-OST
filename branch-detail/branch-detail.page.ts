@@ -85,7 +85,7 @@ export class BranchDetailPage extends PageBase {
     });
 
     if (this.navParams) {
-      this.branchList = JSON.parse(JSON.stringify(this.navParams.data.items));
+      this.branchList = lib.cloneObject(this.navParams.data.items);
       this.branchList.forEach((i) => {
         let prefix = '';
         for (let j = 1; j < i.level; j++) {
@@ -93,7 +93,7 @@ export class BranchDetailPage extends PageBase {
         }
         i.Name = prefix + i.Name;
       });
-      this.item = JSON.parse(JSON.stringify(this.navParams.data.item));
+      this.item = lib.cloneObject(this.navParams.data.item);
       this.id = this.navParams.data.id;
 
       if (this.pageConfig.canEdit || this.pageConfig.canEditBranch) {
