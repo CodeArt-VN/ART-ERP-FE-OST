@@ -1,9 +1,9 @@
 <ion-header>
   
-  <app-toolbar pageTitle="{{'Organization structure' | translate}}" [page]="this" >
+  <app-toolbar [page]="this" >
     <ion-toolbar >
-      <ion-button  (click)="createPaymentQRCode()" 
-      class="ion-hide-sm-down" *ngIf="selectedItems.length>0"  title="{{'Create payment QR code' | translate}}">
+      <ion-button  (click)="printQRCode()" 
+      class="ion-hide-sm-down" *ngIf="selectedItems.length>0"  title="{{'Print QR code' | translate}}">
           <ion-icon name="qr-code-outline"></ion-icon>
       </ion-button>
     </ion-toolbar>

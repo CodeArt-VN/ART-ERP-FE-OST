@@ -67,13 +67,20 @@ export class BranchPage extends PageBase {
       branch.Icon = '';
     }
   }
-  createPaymentQRCode(){
+  printQRCode(){
     this.query.Id = this.selectedItems.map(d=> d.Id);
     this.env.showLoading('Đang tạo mã',this.pageProvider.commonService.connect('GET','BRA/Branch/getStaticPaymentQRCode',this.query).toPromise())
-    .then((resp) => {
+    .then((resp:any) => {
       if(resp){
+        console.log(resp);
               let navigationExtras: NavigationExtras = {
-                state: resp
+                state: resp.map(m=>{
+                  return {
+                    line1 : m.PaymentDetail,
+                    line2 : m.Name,
+                    qrCode : m.QRCode,
+                  }
+                })
               };
               this.nav('/qr-code-label','forward',navigationExtras)
             }
