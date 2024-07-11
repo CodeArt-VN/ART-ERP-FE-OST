@@ -5,6 +5,7 @@ import { PageBase } from 'src/app/page-base';
 import { lib } from 'src/app/services/static/global-functions';
 import { BRA_BranchProvider } from 'src/app/services/static/services.service';
 import { BranchDetailPage } from '../branch-detail/branch-detail.page';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-branch',
@@ -17,6 +18,7 @@ export class BranchPage extends PageBase {
 
   constructor(
     public pageProvider: BRA_BranchProvider,
+    public router: Router,
     public modalController: ModalController,
     public alertCtrl: AlertController,
     public loadingController: LoadingController,
@@ -65,6 +67,23 @@ export class BranchPage extends PageBase {
       branch.Icon = '';
     }
   }
+  createPaymentQRCode(){
+    this.query.Id = this.selectedItems.map(d=> d.Id);
+    this.env.showLoading('Đang tạo mã',this.pageProvider.commonService.connect('GET','BRA/Branch/getStaticPaymentQRCode',this.query).toPromise())
+    .then((resp) => {
+      if(resp){
+              let navigationExtras: NavigationExtras = {
+                state: resp
+              };
+              this.nav('/qr-code-label','forward',navigationExtras)
+            }
+    })
+    .catch((err) => {
+      console.log(err);
+      if (err.message != null) this.env.showMessage(err.message, 'danger');
+      else this.env.showMessage('Không tạo được mã, xin vui lòng kiểm tra lại.', 'danger');
+    });
+  }
 
   toggleRowAll() {
     this.isAllRowOpened = !this.isAllRowOpened;
@@ -73,7 +92,7 @@ export class BranchPage extends PageBase {
       this.toggleRow(this.itemsState, i, true);
     });
   }
-
+ 
   async showModal(i) {
     this.lastIDParent = i.IDParent;
     const modal = await this.modalController.create({
