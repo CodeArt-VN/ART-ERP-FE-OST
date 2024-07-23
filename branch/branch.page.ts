@@ -67,29 +67,33 @@ export class BranchPage extends PageBase {
       branch.Icon = '';
     }
   }
-  printQRCode(){
-    this.query.Id = this.selectedItems.map(d=> d.Id);
-    this.env.showLoading('Đang tạo mã',this.pageProvider.commonService.connect('GET','BRA/Branch/getStaticPaymentQRCode',this.query).toPromise())
-    .then((resp:any) => {
-      if(resp){
-        console.log(resp);
-              let navigationExtras: NavigationExtras = {
-                state: resp.map(m=>{
-                  return {
-                    line1 : m.PaymentDetail,
-                    line2 : m.Name,
-                    qrCode : m.QRCode,
-                  }
-                })
+  printQRCode() {
+    let query = { Id: this.selectedItems.map((d) => d.Id) };
+    this.env
+      .showLoading(
+        'Đang tạo mã',
+        this.pageProvider.commonService.connect('GET', 'BRA/Branch/getStaticPaymentQRCode', query).toPromise(),
+      )
+      .then((resp: any) => {
+        if (resp) {
+          console.log(resp);
+          let navigationExtras: NavigationExtras = {
+            state: resp.map((m) => {
+              return {
+                line1: m.PaymentDetail,
+                line2: m.Name,
+                qrCode: m.QRCode,
               };
-              this.nav('/qr-code-label','forward',navigationExtras)
-            }
-    })
-    .catch((err) => {
-      console.log(err);
-      if (err.message != null) this.env.showMessage(err.message, 'danger');
-      else this.env.showMessage('Không tạo được mã, xin vui lòng kiểm tra lại.', 'danger');
-    });
+            }),
+          };
+          this.nav('/qr-code-label', 'forward', navigationExtras);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err.message != null) this.env.showMessage(err.message, 'danger');
+        else this.env.showMessage('Không tạo được mã, xin vui lòng kiểm tra lại.', 'danger');
+      });
   }
 
   toggleRowAll() {
@@ -99,7 +103,7 @@ export class BranchPage extends PageBase {
       this.toggleRow(this.itemsState, i, true);
     });
   }
- 
+
   async showModal(i) {
     this.lastIDParent = i.IDParent;
     const modal = await this.modalController.create({
