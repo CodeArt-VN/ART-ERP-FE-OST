@@ -68,8 +68,10 @@ export class BranchPage extends PageBase {
     }
   }
   printQRCode(){
-    this.query.Id = this.selectedItems.map(d=> d.Id);
-    this.env.showLoading('Đang tạo mã',this.pageProvider.commonService.connect('GET','BRA/Branch/getStaticPaymentQRCode',this.query).toPromise())
+    let queryPrintQR = {
+      Id : this.selectedItems.map(d=> d.Id)
+    }
+    this.env.showLoading('Đang tạo mã',this.pageProvider.commonService.connect('GET','BRA/Branch/getStaticPaymentQRCode',queryPrintQR).toPromise())
     .then((resp:any) => {
       if(resp){
         console.log(resp);
