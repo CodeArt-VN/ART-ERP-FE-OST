@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, ModalController, AlertController, LoadingController } from '@ionic/angular';
+import { NavController, ModalController, AlertController, LoadingController, PopoverController } from '@ionic/angular';
 import { EnvService } from 'src/app/services/core/env.service';
 import { PageBase } from 'src/app/page-base';
 import { lib } from 'src/app/services/static/global-functions';
@@ -18,6 +18,7 @@ export class BranchPage extends PageBase {
 
   constructor(
     public pageProvider: BRA_BranchProvider,
+    public popoverCtrl: PopoverController,
     public router: Router,
     public modalController: ModalController,
     public alertCtrl: AlertController,
