@@ -71,7 +71,7 @@ export class BranchPage extends PageBase {
   printQRCode() {
     let query = { Id: this.selectedItems.map((d) => d.Id) };
     this.env
-      .showLoading(
+      .showLoading2(
         'Đang tạo mã',
         this.pageProvider.commonService.connect('GET', 'BRA/Branch/getStaticPaymentQRCode', query).toPromise(),
       )
@@ -92,8 +92,8 @@ export class BranchPage extends PageBase {
       })
       .catch((err) => {
         console.log(err);
-        if (err.message != null) this.env.showMessage(err.message, 'danger');
-        else this.env.showMessage('Không tạo được mã, xin vui lòng kiểm tra lại.', 'danger');
+        if (err.message != null) this.env.showTranslateMessage(err.message, 'danger');
+        else this.env.showTranslateMessage('Không tạo được mã, xin vui lòng kiểm tra lại.', 'danger');
       });
   }
 
