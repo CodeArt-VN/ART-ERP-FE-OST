@@ -8,9 +8,10 @@ import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { CommonService } from 'src/app/services/core/common.service';
 
 @Component({
-  selector: 'app-office-detail',
-  templateUrl: './office-detail.page.html',
-  styleUrls: ['./office-detail.page.scss'],
+    selector: 'app-office-detail',
+    templateUrl: './office-detail.page.html',
+    styleUrls: ['./office-detail.page.scss'],
+    standalone: false
 })
 export class OfficeDetailPage extends PageBase {
   constructor(

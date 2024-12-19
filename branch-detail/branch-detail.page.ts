@@ -8,9 +8,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { lib } from 'src/app/services/static/global-functions';
 
 @Component({
-  selector: 'app-branch-detail',
-  templateUrl: './branch-detail.page.html',
-  styleUrls: ['./branch-detail.page.scss'],
+    selector: 'app-branch-detail',
+    templateUrl: './branch-detail.page.html',
+    styleUrls: ['./branch-detail.page.scss'],
+    standalone: false
 })
 export class BranchDetailPage extends PageBase {
   formGroup: FormGroup;

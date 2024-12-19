@@ -8,9 +8,10 @@ import { BranchDetailPage } from '../branch-detail/branch-detail.page';
 import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-branch',
-  templateUrl: 'branch.page.html',
-  styleUrls: ['branch.page.scss'],
+    selector: 'app-branch',
+    templateUrl: 'branch.page.html',
+    styleUrls: ['branch.page.scss'],
+    standalone: false
 })
 export class BranchPage extends PageBase {
   itemsState: any = [];

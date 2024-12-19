@@ -6,9 +6,10 @@ import { OST_OfficeProvider } from 'src/app/services/static/services.service';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-office',
-  templateUrl: 'office.page.html',
-  styleUrls: ['office.page.scss'],
+    selector: 'app-office',
+    templateUrl: 'office.page.html',
+    styleUrls: ['office.page.scss'],
+    standalone: false
 })
 export class OfficePage extends PageBase {
   constructor(
