@@ -7,13 +7,7 @@ import { OfficePage } from './office.page';
 import { ShareModule } from 'src/app/share.module';
 
 @NgModule({
-  imports: [
-    IonicModule,
-    CommonModule,
-    FormsModule,
-    ShareModule,
-    RouterModule.forChild([{ path: '', component: OfficePage }]),
-  ],
-  declarations: [OfficePage],
+	imports: [IonicModule, CommonModule, FormsModule, ShareModule, RouterModule.forChild([{ path: '', component: OfficePage }])],
+	declarations: [OfficePage],
 })
 export class OfficePageModule {}

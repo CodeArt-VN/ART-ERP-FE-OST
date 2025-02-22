@@ -8,14 +8,7 @@ import { ShareModule } from 'src/app/share.module';
 import { NgOptionHighlightModule } from '@ng-select/ng-option-highlight';
 
 @NgModule({
-  imports: [
-    IonicModule,
-    CommonModule,
-    FormsModule,
-    NgOptionHighlightModule,
-    ShareModule,
-    RouterModule.forChild([{ path: '', component: BranchPage }]),
-  ],
-  declarations: [BranchPage],
+	imports: [IonicModule, CommonModule, FormsModule, NgOptionHighlightModule, ShareModule, RouterModule.forChild([{ path: '', component: BranchPage }])],
+	declarations: [BranchPage],
 })
 export class BranchPageModule {}

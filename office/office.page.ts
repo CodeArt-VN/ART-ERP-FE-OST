@@ -6,22 +6,22 @@ import { OST_OfficeProvider } from 'src/app/services/static/services.service';
 import { Location } from '@angular/common';
 
 @Component({
-    selector: 'app-office',
-    templateUrl: 'office.page.html',
-    styleUrls: ['office.page.scss'],
-    standalone: false
+	selector: 'app-office',
+	templateUrl: 'office.page.html',
+	styleUrls: ['office.page.scss'],
+	standalone: false,
 })
 export class OfficePage extends PageBase {
-  constructor(
-    public pageProvider: OST_OfficeProvider,
-    public modalController: ModalController,
-    public popoverCtrl: PopoverController,
-    public alertCtrl: AlertController,
-    public loadingController: LoadingController,
-    public env: EnvService,
-    public navCtrl: NavController,
-    public location: Location,
-  ) {
-    super();
-  }
+	constructor(
+		public pageProvider: OST_OfficeProvider,
+		public modalController: ModalController,
+		public popoverCtrl: PopoverController,
+		public alertCtrl: AlertController,
+		public loadingController: LoadingController,
+		public env: EnvService,
+		public navCtrl: NavController,
+		public location: Location
+	) {
+		super();
+	}
 }

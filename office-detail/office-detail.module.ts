@@ -7,14 +7,14 @@ import { ShareModule } from 'src/app/share.module';
 import { OfficeDetailPage } from './office-detail.page';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: OfficeDetailPage,
-  },
+	{
+		path: '',
+		component: OfficeDetailPage,
+	},
 ];
 
 @NgModule({
-  imports: [CommonModule, FormsModule, IonicModule, ReactiveFormsModule, ShareModule, RouterModule.forChild(routes)],
-  declarations: [OfficeDetailPage],
+	imports: [CommonModule, FormsModule, IonicModule, ReactiveFormsModule, ShareModule, RouterModule.forChild(routes)],
+	declarations: [OfficeDetailPage],
 })
 export class OfficeDetailPageModule {}
