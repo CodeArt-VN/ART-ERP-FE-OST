@@ -9,4 +9,7 @@ export const OSTRoutes: Routes = [
     { path: 'office', loadChildren: () => import('./office/office.module').then(m => m.OfficePageModule), canActivate: [AuthGuard] },
     { path: 'office/:id', loadChildren: () => import('./office-detail/office-detail.module').then(m => m.OfficeDetailPageModule), canActivate: [AuthGuard] },
 
+    { path: 'value-chain', loadChildren: () => import('./value-chain/value-chain.module').then(m => m.ValueChainPageModule), canActivate: [AuthGuard] },
+    { path: 'value-chain/:id', loadChildren: () => import('./value-chain-detail/value-chain-detail.module').then(m => m.ValueChainDetailPageModule), canActivate: [AuthGuard] },
+
 ];
