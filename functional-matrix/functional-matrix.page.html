@@ -1,0 +1,101 @@
+<ion-header>
+	<app-toolbar [page]="this">
+		<ion-button
+			class="clickable"
+			title="{{'Add' | translate}}"
+			(click)="presentAddNewPopover($event)"
+			*ngIf="
+	(pageConfig.canAdd && pageConfig.ShowAddNew ) "
+		>
+			<ion-icon name="duplicate-outline" color="success" slot="icon-only"></ion-icon>
+		</ion-button>
+
+	</app-toolbar>
+</ion-header>
+<ion-content appScrollbarTheme class="scrollx" scrollX="true" class="left" forceOverscroll="false">
+	<!-- <app-page-title class="ion-padding safe-max-width" [pageConfig]="pageConfig"></app-page-title> -->
+	<div class="functional-matrix-wrapper ">
+		<table class="functional-matrix-table table table-contain">
+			<thead>
+				<tr>
+				
+					<th>{{'Activity' | translate}}</th>
+					<th >{{'Detail' |translate}}</th>
+					<th *ngFor="let branch of branchList">{{ branch.Name }}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- Support -->
+				<ng-container *ngFor="let act of supportActivities; let actIndex = index">
+					<ng-container *ngIf="act.Sections?.length > 0; else noSectionRow">
+						<tr *ngFor="let desc of act.Sections; let descIndex = index">
+							<!-- Cột 1: Support (gộp theo số activity con) -->
+							<!-- Cột 2: Tên activity (gộp số lượng con) -->
+							<td class="activity"*ngIf="descIndex === 0" [attr.rowspan]="act.Sections?.length || 1">{{ act.Name }}</td>
+							<!-- Cột 3: Tên sub activity -->
+							<td class="activity-detail">{{ desc.Name }}</td>
+							<!-- Cột 4+: Branches -->
+							<td *ngFor="let branch of branchList" class="matrix-cell clickable" (click)="showModal(desc,branch)">
+                	<div class="chevron-container">
+									<ng-container *ngFor="let item of items">
+										<div *ngIf="item.IDValueChain === desc.Id && item.IDBranch === branch.Id" class="chevron clickable">
+											<span>{{ item.Type}} : {{item.Name}}</span>
+										</div>
+									</ng-container>
+								</div>
+							</td>
+						</tr>
+					</ng-container>
+					<ng-template #noSectionRow>
+						<tr>
+							<!-- Cột 1: Support (chỉ hiện ở dòng đầu) -->
+							<!-- Cột 2: Tên activity -->
+							<td class="activity">{{ act.Name }}</td>
+							<!-- Cột 3: Trống vì không có section -->
+							<td></td>
+							<!-- Cột 4+: Branches -->
+							<td *ngFor="let branch of branchList" class="matrix-cell"></td>
+						</tr>
+					</ng-template>
+				</ng-container>
+
+				<!-- Support -->
+				<ng-container *ngFor="let act of primaryActivities; let actIndex = index">
+					<ng-container *ngIf="act.Sections?.length > 0; else noSectionRow">
+						<tr *ngFor="let desc of act.Sections; let descIndex = index">
+							<!-- Cột 1: Support (gộp theo số activity con) -->
+							<!-- Cột 2: Tên activity (gộp số lượng con) -->
+							<td class="activity" *ngIf="descIndex === 0" [attr.rowspan]="act.Sections?.length || 1"><div class="chevron-wrapper">{{ act.Name }}</div></td>
+							<!-- Cột 3: Tên sub activity -->
+							<td class="activity-detail">{{ desc.Name }}</td>
+							<!-- Cột 4+: Branches -->
+							<td *ngFor="let branch of branchList" class="matrix-cell clickable"  (click)="showModal(desc,branch)">
+								<div class="chevron-container responsibility-cell">
+									<ng-container *ngFor="let item of items">
+										<div *ngIf="item.IDValueChain === desc.Id && item.IDBranch === branch.Id" class="chevron clickable">
+											<span>{{ item.Type}} : {{item.Name}}</span>
+										</div>
+									</ng-container>
+								</div>
+								<!-- <div (click)="$event.stopPropagation();showModal(null,'Primary',act?.Id)" class="addButton" *ngIf="pageConfig.canAdd">
+									<ion-icon class="clickable" name="add-circle-outline"></ion-icon>
+								</div> -->
+							</td>
+						</tr>
+					</ng-container>
+					<ng-template #noSectionRow>
+						<tr>
+							<!-- Cột 1: Support (chỉ hiện ở dòng đầu) -->
+							<!-- Cột 2: Tên activity -->
+							<td class="activity">{{ act.Name }}</td>
+							<!-- Cột 3: Trống vì không có section -->
+							<td></td>
+							<!-- Cột 4+: Branches -->
+							<td *ngFor="let branch of branchList" class="matrix-cell"></td>
+						</tr>
+					</ng-template>
+				</ng-container>
+			</tbody>
+		</table>
+	</div>
+</ion-content>

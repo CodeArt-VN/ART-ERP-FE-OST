@@ -1,0 +1,72 @@
+.functional-matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--table-row-background);
+}
+
+.functional-matrix-table th,
+.functional-matrix-table td {
+  border: 1px solid #e0e6ed;
+  padding: 8px;
+  text-align: center;
+  vertical-align: middle;
+
+  transition: background 0.2s;
+}
+
+.functional-matrix-table td:has(.activity-title) {
+  padding: 0;
+}
+
+
+
+.functional-matrix-table th {
+
+  font-weight: bold;
+}
+
+.col-type {
+  width: 80px;
+  font-weight: bold;
+}
+.activity{
+  font-weight: bold;
+  color: var(--ion-color-primary);
+}
+
+.activity-detail{
+  font-weight: bold;
+}
+.chevron-container {
+  min-width: 150px;
+  padding: 0;
+}
+
+.chevron {
+  min-height: 40px;
+  padding: 8px;
+  display: flex;
+  text-align: left;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.matrix-cell {
+  min-width: 120px;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.responsibility-cell {
+  padding: 0;
+}
+
+.col-activity {
+  width: 200px;
+  text-align: left;
+}
+
+.col-sub {
+  width: 250px;
+  text-align: left;
+}
