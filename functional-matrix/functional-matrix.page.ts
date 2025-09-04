@@ -38,7 +38,8 @@ export class FunctionalMatrixPage extends PageBase {
 	preLoadData(event?: any): void {
 		Promise.all([this.valueChainProvider.read()]).then((values: any) => {
 			this.valueChainList = values[0].data;
-			this.branchList = this.env.branchList.filter((d) => d.IDParent == 16);
+			let root = this.env.branchList.find((d) => !d.IDParent && d.Code == 'Root'); 
+			this.branchList = this.env.branchList.filter((d) => d.IDParent == root?.Id);
 
 			this.valueChainList
 				.filter((d) => !d.IDParent)
