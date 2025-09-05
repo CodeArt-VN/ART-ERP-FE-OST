@@ -4,7 +4,7 @@ import { EnvService } from 'src/app/services/core/env.service';
 import { PageBase } from 'src/app/page-base';
 import { BRA_BranchProvider, OST_ValueChainProvider, SYS_ActionProvider, SYS_IntegrationProviderProvider } from 'src/app/services/static/services.service';
 import { Location } from '@angular/common';
-import { SortConfig } from 'src/app/models/options-interface';
+import { SortConfig } from 'src/app/interfaces/options-interface';
 import { ValueChainDetailPage } from '../value-chain-detail/value-chain-detail.page';
 
 @Component({
