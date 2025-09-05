@@ -68,7 +68,7 @@ export class FunctionalMatrixDetailPage extends PageBase {
 		this.items.forEach((i) => {
 			this.addFormGroup(i);
 		});
-		if(this.pageConfig.canEdit){
+		if(!this.pageConfig.canEdit){
 			this.formArray.controls.forEach((fg:FormGroup) => {
 				if(fg.value.Id){
 					fg.disable();
