@@ -38,7 +38,6 @@ export class FunctionalMatrixDetailPage extends PageBase {
 		public loadingController: LoadingController
 	) {
 		super();
-	
 	}
 	valueChain;
 	currentBranch;
@@ -58,61 +57,48 @@ export class FunctionalMatrixDetailPage extends PageBase {
 		}
 	}
 	loadedData() {
-		if(!this.currentBranch) this.currentBranch = this.env.selectedBranch;
+		if (!this.currentBranch) this.currentBranch = this.env.selectedBranch;
 		super.loadedData();
 		this.patchFormArray();
-		if(this.formArray.length == 0 && this.pageConfig.canAdd)this.addFormGroup({});
+		if (this.formArray.length == 0 && this.pageConfig.canAdd) this.addFormGroup({});
 	}
 	patchFormArray() {
 		this.formArray = new FormArray([]);
 		this.items.forEach((i) => {
 			this.addFormGroup(i);
 		});
-		if(!this.pageConfig.canEdit){
-			this.formArray.controls.forEach((fg:FormGroup) => {
-				if(fg.value.Id){
+		if (!this.pageConfig.canEdit) {
+			this.formArray.controls.forEach((fg: FormGroup) => {
+				if (fg.value.Id) {
 					fg.disable();
 				}
-			})
+			});
 		}
 	}
+
 	addFormGroup(i) {
 		let group = this.formBuilder.group({
-				IDBranch: [this.currentBranch.Id],
-				IDValueChain: [i.IDValueChain ?? this.valueChain.Id],
-				Type: [i.Type,Validators.required],
-				Id: [i.Id],
-				Code: [i.Code],
-				Name: [i.Name,Validators.required],
-				Remark: [i.Remark],
-				Sort: [i.Sort],
-			})
-			if(i.IsDisabled) group.disable();
+			IDBranch: [this.currentBranch.Id],
+			IDValueChain: [i.IDValueChain ?? this.valueChain.Id],
+			Type: [i.Type, Validators.required],
+			Id: [i.Id],
+			Name: [i.Name, Validators.required],
+		});
+		if (i.IsDisabled) group.disable();
 		this.formArray.push(group);
-		if(!i.Id){
+		if (!i.Id) {
 			group.get('IDValueChain').markAsDirty();
-		}
-	}
-	changeType(e) {
-		if (e.Code == 'Primary') {
-			this.itemParents = this.items.filter((d) => d.Type == 'Primary' && !d.IDParent);
-		} else {
-			this.itemParents = this.items.filter((d) => d.Type == 'Support' && !d.IDParent);
-		}
-		let parent = this.items?.find((d) => d.Id == this.formGroup.controls.IDParent.value);
-		if (parent && parent.Type != e.Code) {
-			this.formGroup.controls.IDParent.setValue(null);
-			this.formGroup.controls.IDParent.markAsDirty();
 		}
 	}
 
 	refresh(event?: any): void {
 		this.preLoadData();
 	}
-	async saveChange() {
+	savedState = false;
+	async saveChange(isContinue = false) {
 		let objPost = [];
 		let groups = this.formArray.controls;
-		groups.forEach(async (g:FormGroup) => {
+		groups.forEach(async (g: FormGroup) => {
 			g.updateValueAndValidity();
 			if (!g.valid) {
 				let invalidControls = this.findInvalidControlsRecursive(g);
@@ -121,17 +107,32 @@ export class FunctionalMatrixDetailPage extends PageBase {
 					let invalidControls = values;
 					this.env.showMessage('Please recheck control(s): {{value}}', 'warning', invalidControls.join(' | '));
 				});
-			} 
-			else{
+			} else {
 				let submitValue = this.getDirtyValues(g);
 				objPost.push(submitValue);
 			}
 		});
-		this.pageProvider.commonService.connect('POST', 'OST/FunctionalMatrix/PostItems', objPost).toPromise().then((resp: any) => {
-			 this.modalController.dismiss(true);
-		});
+		this.pageProvider.commonService
+			.connect('POST', 'OST/FunctionalMatrix/PostItems', objPost)
+			.toPromise()
+			.then((resp: any) => {
+				this.savedState = true;
+				this.env.showMessage('SAVE_SUCCESS', 'success');
+				if (!isContinue) this.modalController.dismiss(this.savedState);
+				else {
+					this.formArray = new FormArray([]);
+					this.items.forEach((i) => {
+						i.Id = 0;
+						this.addFormGroup(i);
+					});
+					this.loadedData();
+				}
+			});
 	}
-	async deleteFG(fg,idx) {
+	async closeModal(){
+		this.modalController.dismiss(this.savedState);
+	}
+	async deleteFG(fg, idx) {
 		if (fg.value.Id) {
 			this.env
 				.actionConfirm('delete', this.selectedItems.length, this.item?.Name, this.pageConfig.pageTitle, () =>
@@ -145,8 +146,7 @@ export class FunctionalMatrixDetailPage extends PageBase {
 					if (err != 'User abort action') this.env.showMessage('DELETE_RESULT_FAIL', 'danger');
 					console.log(err);
 				});
-		}
-		else{
+		} else {
 			this.formArray.removeAt(idx);
 		}
 	}

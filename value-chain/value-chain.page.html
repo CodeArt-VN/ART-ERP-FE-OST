@@ -81,6 +81,7 @@
 										<span class="clickable" *ngIf="pageConfig.canEdit" (click)="$event.stopPropagation();showModal(desc,'Primary',act?.Id)">
 											{{ desc.Name }}
 										</span>
+										<span  *ngIf="!pageConfig.canEdit" >{{ desc.Name }}</span>
 									</li>
 								</ul>
 							</ion-row>

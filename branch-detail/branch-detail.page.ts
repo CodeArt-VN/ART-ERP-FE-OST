@@ -3,7 +3,7 @@ import { NavController, ModalController, NavParams, LoadingController, AlertCont
 import { PageBase } from 'src/app/page-base';
 import { ActivatedRoute } from '@angular/router';
 import { EnvService } from 'src/app/services/core/env.service';
-import { BRA_BranchProvider } from 'src/app/services/static/services.service';
+import { BRA_BranchProvider, OST_FunctionalMatrixProvider } from 'src/app/services/static/services.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { lib } from 'src/app/services/static/global-functions';
 
@@ -24,13 +24,13 @@ export class BranchDetailPage extends PageBase {
 		// {Id: 116, Name: 'Nhóm/Tổ/Đội (trực thuộc của 3,4)'},
 		// {Id: 119, Name: 'Chức danh'},
 	];
-
+	functionalMatrixList = [];
 	constructor(
 		public pageProvider: BRA_BranchProvider,
 		public env: EnvService,
 		public navCtrl: NavController,
 		public route: ActivatedRoute,
-
+		public functionalMatrixProvider: OST_FunctionalMatrixProvider,
 		public modalController: ModalController,
 		public alertCtrl: AlertController,
 		public navParams: NavParams,
@@ -41,7 +41,10 @@ export class BranchDetailPage extends PageBase {
 		super();
 		this.pageConfig.isDetailPage = true;
 		this.id = this.route.snapshot.paramMap.get('id');
-		this.formGroup = formBuilder.group({
+		this.buildForm();
+	}
+	buildForm(){
+		this.formGroup = this.formBuilder.group({
 			IDParent: [''],
 			Type: ['', Validators.required],
 			Id: [''],
@@ -74,7 +77,6 @@ export class BranchDetailPage extends PageBase {
 			IsHeadOfDepartment: [''],
 		});
 	}
-
 	branchList = [];
 	preLoadData() {
 		if (this.pageConfig.canEditBranch) {
@@ -87,13 +89,13 @@ export class BranchDetailPage extends PageBase {
 
 		if (this.navParams) {
 			this.branchList = JSON.parse(JSON.stringify(this.navParams.data.items));
-			this.branchList.forEach((i) => {
-				let prefix = '';
-				for (let j = 1; j < i.level; j++) {
-					prefix += '- ';
-				}
-				i.Name = prefix + i.Name;
-			});
+			// this.branchList.forEach((i) => {
+			// 	let prefix = '';
+			// 	for (let j = 1; j < i.level; j++) {
+			// 		prefix += '- ';
+			// 	}
+			// 	i.Name = prefix + i.Name;
+			// });
 			this.item = JSON.parse(JSON.stringify(this.navParams.data.item));
 			this.id = this.navParams.data.id;
 
@@ -101,7 +103,7 @@ export class BranchDetailPage extends PageBase {
 				this.formGroup.enable();
 			}
 
-			this.removeCurrentNode();
+			// this.removeCurrentNode();
 			this.cdr.detectChanges();
 			this.loadedData();
 		}
@@ -117,15 +119,37 @@ export class BranchDetailPage extends PageBase {
 		}
 	}
 
-	removeCurrentNode() {
-		let currentItem = this.branchList.find((i) => i.Id == this.id);
-		if (currentItem) {
-			currentItem.flag = true;
-			lib.markNestedNode(this.branchList, this.id);
-		}
+	// removeCurrentNode() {
+	// 	let currentItem = this.branchList.find((i) => i.Id == this.id);
+	// 	if (currentItem) {
+	// 		currentItem.flag = true;
+	// 		lib.markNestedNode(this.branchList, this.id);
+	// 	}
+	// }
+	savedState = false;
+	async saveChange(isContinue?: any){
+		 this.saveChange2().then((res:any)=>{
+			 this.savedState = true;
+			if(isContinue) {
+				this.buildForm();
+				this.formGroup.get('IDParent').setValue(res.IDParent);
+				this.formGroup.get('IDParent').markAsDirty();
+				this.item = null;
+				this.loadedData();
+			}
+			else{
+				this.modalController.dismiss(this.savedState);
+			}
+		 });
 	}
-
-	saveChange(publishEventCode?: any): Promise<unknown> {
-		return this.saveChange2();
+	segmentView = 's1';
+	segmentChange(e){
+		this.segmentView = e.detail.value;
+		if(this.segmentView == 's2'){
+		this.env.showLoading('Please wait for a few moments', this.functionalMatrixProvider.read({ IDBranch: this.id })).then((res:any)=>{
+				this.functionalMatrixList = res.data;
+				console.log(this.functionalMatrixList);
+			});
+		}
 	}
 }

@@ -13,6 +13,7 @@ export const OSTRoutes: Routes = [
     { path: 'value-chain/:id', loadChildren: () => import('./value-chain-detail/value-chain-detail.module').then(m => m.ValueChainDetailPageModule), canActivate: [AuthGuard] },
 
     { path: 'functional-matrix', loadChildren: () => import('./functional-matrix/functional-matrix.module').then(m => m.FunctionalMatrixPageModule), canActivate: [AuthGuard] },
-    { path: 'functional-matrix/:id', loadChildren: () => import('./functional-matrix-detail/functional-matrix-detail.module').then(m => m.FunctionalMatrixDetailPageModule), canActivate: [AuthGuard] },
+    { path: 'functional-matrix/:id', loadChildren: () => import('./functional-matrix/functional-matrix.module').then(m => m.FunctionalMatrixPageModule), canActivate: [AuthGuard] },
+    { path: 'functional-matrix-detail', loadChildren: () => import('./functional-matrix-detail/functional-matrix-detail.module').then(m => m.FunctionalMatrixDetailPageModule), canActivate: [AuthGuard] },
 
 ];

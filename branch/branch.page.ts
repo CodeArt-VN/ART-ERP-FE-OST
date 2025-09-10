@@ -112,7 +112,7 @@ export class BranchPage extends PageBase {
 				item: i,
 				id: i.Id,
 			},
-			cssClass: 'my-custom-class',
+			cssClass: 'modal90',
 		});
 		return await modal.present();
 	}
