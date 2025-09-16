@@ -101,7 +101,7 @@ export class ValueChainDetailPage extends PageBase {
 		this.preLoadData();
 	}
 	savedState = false;
-	async saveChange(isContinue = false) {
+	async saveChange(isContinue?:any) {
 		super.saveChange2().then((res: any) => {
 			this.savedState = true;
 			if(!isContinue) this.modalController.dismiss(this.savedState);
