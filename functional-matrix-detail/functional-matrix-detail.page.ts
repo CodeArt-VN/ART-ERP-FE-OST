@@ -95,7 +95,7 @@ export class FunctionalMatrixDetailPage extends PageBase {
 		this.preLoadData();
 	}
 	savedState = false;
-	async saveChange(isContinue = false) {
+	async saveChange(isContinue?:any) {
 		let objPost = [];
 		let groups = this.formArray.controls;
 		groups.forEach(async (g: FormGroup) => {
