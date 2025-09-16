@@ -1,0 +1,54 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>{{currentBranch?.Name}}</ion-title>
+		<ion-buttons slot="primary">
+			<ion-button title="{{'Refresh' | translate}}" color="warning" (click)="refresh()">
+				<ion-icon slot="icon-only" name="reload-outline"></ion-icon>
+			</ion-button>
+			<ion-button title="{{'Close' | translate}}" color="secondary" (click)="closeModal()">
+				<ion-icon slot="icon-only" name="close"></ion-icon>
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<ion-content appScrollbarTheme class="ion-padding" fullscreen>
+	<div class="main-view" *ngIf="pageConfig.showSpinner == false">
+		<div class="row-full shadow full-screen ion-padding">
+			<ion-grid fixed>
+				<ion-row class="hr-group" *ngFor="let fg of formArray.controls; let i = index">
+					<ion-col size-xs="12" size-sm="12" size-md="12" size-lg="12" size-xl="12">
+						<app-form-control [field]="{id:'Name', label: 'Activity', type : 'textarea', form: fg}"></app-form-control>
+						<ion-list>
+							<form [formGroup]="fg">
+								<ion-radio-group [formControlName]="'Type'">
+									<ion-item *ngFor="let type of typeList" lines="none">
+										<ion-radio slot="start" [value]="type.Code"> </ion-radio>
+										<ion-label>{{ type.Name | translate }}</ion-label>
+									</ion-item>
+								</ion-radio-group>
+							</form>
+						</ion-list>
+						<!-- <app-form-control
+							(change)="onTypeChange($event, fg)"
+							[field]="{id:'Type', label: 'Type', type : 'radio', dataSource: typeList, bindLabel: 'Name', bindValue: 'Code', form: fg }"
+						></app-form-control> -->
+						<!-- <app-form-control [field]="{id:'Code', label:'Code', type : 'text', form : fg }"></app-form-control> -->
+						<div *ngIf="pageConfig.canDelete">
+							<ion-button color="danger" size="small" (click)="deleteFG(fg, i)">
+								<ion-icon slot="start" name="trash-outline"></ion-icon>
+								{{ 'delete' | translate }}
+							</ion-button>
+						</div>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
+		</div>
+	</div>
+</ion-content>
+<ion-footer>
+	<ion-toolbar>
+		<ion-button size="large" slot="end" (click)="addFormGroup({})">{{'Add' | translate}}</ion-button>
+		<ion-button size="large" slot="end" *ngIf="pageConfig.canAdd || pageConfig.canEdit" (click)="saveChange()">{{'Save' | translate}}</ion-button>
+		<ion-button size="large" slot="end" *ngIf="pageConfig.canAdd || pageConfig.canEdit" (click)="saveChange(true)">{{'Save and continue' | translate}}</ion-button>
+	</ion-toolbar>
+</ion-footer>

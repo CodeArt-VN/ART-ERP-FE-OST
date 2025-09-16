@@ -1,0 +1,120 @@
+    table {
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+
+    .functional-matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--table-row-background);
+    }
+
+    // .functional-matrix-table {
+    //   width: 100%;
+    //   border-collapse: collapse;
+    //   background: var(--table-row-background);
+    // }
+
+    thead {
+      // display: flex;
+      // width: max-content;
+      min-width: 100%;
+      min-height: 35px;
+      border-bottom: solid 1px var(--menu-right-border-color);
+      background: var(--table-header-background) !important;
+    }
+
+ 
+
+    th {
+      position: sticky;
+      top: 0;
+      // background-color: #f0f0f0;
+      /* Choose a background color */
+      z-index: 1;
+      /* Ensure the header stays on top of other content */
+      position: -webkit-sticky;
+    }
+
+    .functional-matrix-table th,
+    .functional-matrix-table td {
+      border: 1px solid #e0e6ed;
+      padding: 8px;
+      text-align: center;
+      vertical-align: middle;
+
+      transition: background 0.2s;
+    }
+
+    th:first-child,
+    td:first-child {
+      position: sticky;
+      left: 0;
+      /* Choose a background color */
+      z-index: 2;
+      /* Higher z-index than sticky header if both are present */
+    }
+
+    .functional-matrix-table td:has(.activity-title) {
+      padding: 0;
+    }
+
+    .sticky-header {
+      position: sticky !important;
+      top: 0;
+      padding: 0;
+      z-index: 10;
+    }
+
+    .functional-matrix-table th {
+
+      font-weight: bold;
+    }
+
+    .col-type {
+      width: 80px;
+      font-weight: bold;
+    }
+
+    .activity {
+      color: var(--ion-color-primary);
+    }
+
+    .chevron-container {
+      min-width: 150px;
+      padding: 0;
+    }
+
+    .chevron {
+      padding: 8px;
+      display: flex;
+      text-align: left;
+      white-space: pre-line;
+      overflow-wrap: anywhere;
+    }
+
+    .matrix-cell {
+      min-width: 120px;
+      white-space: normal;
+      word-wrap: break-word;
+    }
+
+    .responsibility-cell {
+      padding: 0;
+    }
+
+    .col-activity {
+      width: 200px;
+      text-align: left;
+    }
+
+    .col-sub {
+      width: 250px;
+      text-align: left;
+    }
+
+    .disable {
+      background-color: var(--main-background-top);
+      opacity: 0.7;
+      color: var(--ion-color-medium);
+    }

@@ -3,6 +3,9 @@
 		<ion-title>{{item.Name}}</ion-title>
 
 		<ion-buttons slot="primary">
+			<ion-button title="{{'Refresh' | translate}}" color="warning" (click)="refresh()">
+				<ion-icon slot="icon-only" name="reload-outline"></ion-icon>
+			</ion-button>
 			<ion-button title="{{'Close' | translate}}" color="secondary" (click)="closeModal()">
 				<ion-icon slot="icon-only" name="close"></ion-icon>
 			</ion-button>
@@ -18,19 +21,17 @@
                         <label class="c-label" for="Code">Id</label>
                         <input class="c-input" id="Id" formControlName="Id" type="text">
                     </div> -->
+					<app-form-control [field]="{id:'Name', label: 'Activity', type : 'text', form: formGroup}"></app-form-control>
+
 					<app-form-control
-						[field]="{id:'Name', label: 'Activity', type : 'text', form: formGroup}"
-					></app-form-control>
-				
-					<app-form-control (change)="changeType($event)"
+						(change)="changeType($event)"
 						[field]="{id:'Type', label: 'Type', type : 'ng-select', dataSource: typeList, bindLabel: 'Name', bindValue: 'Code', form: formGroup }"
 					></app-form-control>
 
-					<app-form-control *ngIf="formGroup.controls.Type.value && !isBlockBelong"
+					<app-form-control
+						*ngIf="formGroup.controls.Type.value && !isBlockBelong"
 						[field]="{id:'IDParent', label: 'Belonged to', type : 'ng-select', dataSource: itemParents, bindLabel: 'Name', bindValue: 'Id', clearable:true,form: formGroup}"
 					></app-form-control>
-        
-
 				</ion-col>
 				<ion-col>
 					<app-form-control [field]="{id:'Code', label:'Code', type : 'text', form : formGroup }"></app-form-control>
@@ -42,15 +43,12 @@
 
 					<app-form-control [field]="{id:'Sort', label:'Sort', type : 'number', form : formGroup }" (change)="saveChange()"></app-form-control>
 
-					<div class="c-control ion-text-right" *ngIf="!item.Id && (pageConfig.canEditFunction || pageConfig.canAdd)">
-						<label class="c-label" for=""></label>
-						<ion-button (click)="saveChange()">{{'Add function' | translate}}</ion-button>
+					<div class="c-control ion-text-right" *ngIf="!item.Id && pageConfig.canAdd">
 					</div>
-					<div class="c-control ion-text-right" *ngIf="item.Id">
-						<ion-button *ngIf="pageConfig.canEdit" (click)="saveChange()" [disabled]="!formGroup.dirty"
-							>{{'Save' | translate}}</ion-button
-						>
-						<ion-button (click)="refresh()" color="warning">{{'Change cancel' | translate}}</ion-button>
+					<div class="c-control ion-text-right">
+						<ion-button  *ngIf="!item.Id && pageConfig.canAdd" (click)="saveChange()">{{'Add' | translate}}</ion-button>
+						<ion-button *ngIf="item.Id && pageConfig.canEdit" (click)="saveChange()" [disabled]="!formGroup.dirty">{{'Save' | translate}}</ion-button>
+						<ion-button *ngIf="pageConfig.canEdit || pageConfig.canAdd" (click)="saveChange(true)" [disabled]="!formGroup.dirty">{{'Save and continue' | translate}}</ion-button>
 						<ion-button *ngIf="item.Id && pageConfig.canDelete" (click)="delete()" color="danger">{{'Delete' | translate}}</ion-button>
 					</div>
 				</ion-col>

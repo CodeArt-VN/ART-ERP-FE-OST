@@ -55,6 +55,7 @@
 					<div (click)="nav(this.pageConfig.pageName+'/'+i.Id,'forward')" class="hide-small col-id cell">
 						<a [routerLink]="['/'+pageConfig.pageName+'/'+i.Id]">{{i.Id}}</a>
 					</div>
+
 					<div [ngClass]="i.HasChild? ('bold ') : ('')" class="col-name cell">
 						<ng-container *ngFor="let w of i.levels; let k = index;"><span class="spacing" *ngIf="k>0"></span></ng-container>
 						<ion-icon
@@ -73,6 +74,13 @@
 								<ion-icon color="warning" class="min-btn" name="archive"></ion-icon
 							></span>
 						</span>
+							&nbsp;
+
+						<div *ngIf="i.HasChild">
+							<a [ngClass]="{ 'no-check-dirty': noCheckDirty }" class="clickable" [routerLink]="['/functional-matrix/' + i.Id]" (mousedown)="$event.stopPropagation()"
+								><ion-icon name="open-outline"></ion-icon
+							></a>
+						</div>
 					</div>
 				</div>
 			</ng-container>

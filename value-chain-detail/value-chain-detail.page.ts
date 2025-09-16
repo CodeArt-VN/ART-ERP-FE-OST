@@ -48,7 +48,18 @@ export class ValueChainDetailPage extends PageBase {
 			Sort: [''],
 		});
 	}
-
+	buildForm(){
+		this.formGroup = this.formBuilder.group({
+			IDBranch: [this.env.selectedBranch],
+			IDParent: [''],
+			Type: ['', Validators.required],
+			Id: [''],
+			Code: [''],
+			Name: ['', Validators.required],
+			Remark: [''],
+			Sort: [''],
+		});
+	}
 	preLoadData() {
 		if (this.navParams) {
 			this.items = JSON.parse(JSON.stringify(this.navParams.data.items));
@@ -89,8 +100,23 @@ export class ValueChainDetailPage extends PageBase {
 	refresh(event?: any): void {
 		this.preLoadData();
 	}
-	async saveChange() {
-		super.saveChange2();
+	savedState = false;
+	async saveChange(isContinue = false) {
+		super.saveChange2().then((res: any) => {
+			this.savedState = true;
+			if(!isContinue) this.modalController.dismiss(this.savedState);
+			else{
+				this.buildForm();
+				this.item = {};
+				this.item.Id = 0;
+				this.item.Type = res.Type;
+				this.item.IDParent = res.IDParent
+				this.loadedData();
+			}
+		});
+	}
+	async closeModal(){
+		this.modalController.dismiss(this.savedState);
 	}
 	async delete(publishEventCode = this.pageConfig.pageName) {
 		if (this.pageConfig.ShowDelete) {
