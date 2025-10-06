@@ -16,6 +16,7 @@ import { lib } from 'src/app/services/static/global-functions';
 export class ValueChainDetailPage extends PageBase {
 	itemParents: any = [];
 	isBlockBelong = false;
+	
 	typeList = [
 		{ Code: 'Primary', Name: 'Primary activities' },
 		{ Code: 'Support', Name: 'Support activities' },
@@ -84,10 +85,12 @@ export class ValueChainDetailPage extends PageBase {
 
 	changeType(e){
 		if(e.Code == 'Primary'){
-			this.itemParents = this.items.filter(d=> d.Type == 'Primary' && !d.IDParent)
+			let primaryID = this.items?.find(d=> d.Type == 'Primary' && !d.IDParent)?.Id;
+			this.itemParents = this.items.filter(d=> d.Type == 'Primary' && d.IDParent == primaryID)
 		}
 		else{
-			this.itemParents = this.items.filter(d=> d.Type == 'Support' && !d.IDParent)
+			let supportID = this.items?.find(d=> d.Type == 'Support' && !d.IDParent)?.Id;
+			this.itemParents = this.items.filter(d=> d.Type == 'Support' && d.IDParent == supportID)
 		}
 		let parent = this.items?.find(d=> d.Id == this.formGroup.controls.IDParent.value);
 		if(parent && parent.Type != e.Code){
