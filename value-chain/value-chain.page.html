@@ -1,25 +1,25 @@
 <ion-header>
 	<app-toolbar [page]="this">
-		<ion-button
-			class="clickable"
-			title="{{'Add' | translate}}"
-			(click)="presentAddNewPopover($event)"
-			*ngIf="
-	(pageConfig.canAdd && pageConfig.ShowAddNew ) "
-		>
+		<ion-button class="clickable" title="{{'Add' | translate}}" (click)="presentAddNewPopover($event)" *ngIf="
+	(pageConfig.canAdd && pageConfig.ShowAddNew ) ">
 			<ion-icon name="duplicate-outline" color="success" slot="icon-only"></ion-icon>
 		</ion-button>
-
+		<ion-button class="clickable" title="{{'Change view' | translate}}" (click)="viewTree = !viewTree">
+			<ion-icon *ngIf="viewTree" name="logo-tableau"  slot="icon-only"></ion-icon>
+			<ion-icon *ngIf="!viewTree" name="apps-outline"  slot="icon-only"></ion-icon>
+		</ion-button>
 		<ion-popover #addNewPopover [isOpen]="isOpenAddNewPopover" (didDismiss)="isOpenAddNewPopover = false">
 			<ng-template>
 				<ion-content appScrollbarTheme scroll-y="false" scroll-x="true">
 					<ion-list lines="none">
-						<ion-item [button]="true" [detail]="false" (click)="addNewPopover.dismiss() ;add(true) " title="{{'Add' | translate}}">
+						<ion-item [button]="true" [detail]="false" (click)="addNewPopover.dismiss() ;add(true) "
+							title="{{'Add' | translate}}">
 							<!-- && selectedItems?.length  == 1 -->
 							<ion-icon name="add" color="s	uccess" slot="start"></ion-icon>
 							<ion-label> {{'Add main activity' | translate}}</ion-label>
 						</ion-item>
-						<ion-item [button]="true" [detail]="false" (click)="addNewPopover.dismiss() ;add() " title="{{'Add' | translate}}">
+						<ion-item [button]="true" [detail]="false" (click)="addNewPopover.dismiss() ;add() "
+							title="{{'Add' | translate}}">
 							<!-- && selectedItems?.length  == 1 -->
 							<ion-icon name="add" color="success" slot="start"></ion-icon>
 							<ion-label> {{'Add activity section' | translate}}</ion-label>
@@ -32,27 +32,93 @@
 </ion-header>
 <ion-content appScrollbarTheme class="scrollx" scrollX="true" class="left" forceOverscroll="false">
 	<app-page-title class="ion-padding safe-max-width" [pageConfig]="pageConfig"></app-page-title>
+	
+	<section class="table" *ngIf="viewTree">
+		<header class="bold">
+			<div class="col-checkbox cell"></div>
+			<div class="col-name cell" (click)="toggleRowAll(itemsState)">
+				<ion-icon class="min-btn"
+					[name]="!isAllRowOpened? 'add-circle-outline':'remove-circle-outline'"></ion-icon>
+				{{'Name' | translate}}
+				<ion-icon *ngIf="sort.Name" [name]="sort.Name == 'Name'?'arrow-down': 'arrow-up'"></ion-icon>
+				<ion-icon (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="query.Keyword"
+					name="search" color="primary"></ion-icon>
+			</div>
+		</header>
+			<form (submit)="refresh()" action="#">
+			<header class="filter" *ngIf="pageConfig.isShowSearch">
+				<div class="col-name cell">
+					<input
+						[ngModelOptions]="{standalone: true}"
+						[(ngModel)]="query.Keyword"
+						class="c-input"
+						[ngClass]="{active: query.Keyword}"
+						placeholder="Tìm theo tên hoặc mã..."
+						type="text"
+					/>
+					<ion-icon (click)="query.Keyword=''; refresh()" *ngIf="query.Keyword" name="close"></ion-icon>
+				</div>
+				<button mat-raised-button type="submit" style="display: none">Search</button>
+			</header>
+		</form>
 
-	<div class="main-view">
+		<ng-container *ngFor="let i of itemsState; let j = index;">
+			<div class="row" *ngIf="i.show" [ngClass]="{odd: j % 2 != 0}" [ngClass]="{selected: i.checked}">
+				<div class="col-checkbox cell">
+					<input *ngIf="i.Id != IDPrimaryActivities && i.Id != IDSupportActivities"
+						(click)="changeSelection(i, $event)" class="c-checkbox" [(ngModel)]="i.checked"
+						type="checkbox" />
+				</div>
+				<!-- <div *ngIf="i.Id != IDPrimaryActivities && i.Id != IDSupportActivities"(click)="nav(this.pageConfig.pageName+'/'+i.Id,'forward')" class="hide-small col-id cell">
+					<a [routerLink]="['/'+pageConfig.pageName+'/'+i.Id]">{{i.Id}}</a>
+				</div> -->
+
+				<div [ngClass]="i.HasChild? ('bold ') : ('')" class="col-name cell">
+					<ng-container *ngFor="let w of i.levels; let k = index;"><span class="spacing"
+							*ngIf="k>0"></span></ng-container>
+					<ion-icon (click)="toggleRow(itemsState, i, true);" class="min-btn clickable"
+						[name]="i.HasChild? (!i.showdetail? 'chevron-forward-outline':'chevron-down-outline') : ''"></ion-icon>
+					<ion-icon class="min-btn" [color]="i.IsHeadOfDepartment?'primary':''" [name]="i.Icon"></ion-icon>
+
+					<span class="clickable" (click)="showModal(i)">
+						<ion-text *ngIf="i.Code" color="primary">{{i.Code}}</ion-text>
+						{{i.Name}}
+						<span *ngIf="i.IsDisabled">
+							-
+							<ion-icon color="warning" class="min-btn" name="archive"></ion-icon></span>
+					</span>
+
+				</div>
+			</div>
+		</ng-container>
+	</section>
+
+	<div class="main-view" *ngIf="!viewTree">
 		<div class="row-full shadow full-screen ion-padding">
 			<ion-grid fixed>
 				<ion-row>
-					<ion-col size="1" class="activity-title"
-						><p>{{'Support activities' | translate}}</p>
-						<div (click)="$event.stopPropagation();showModal(null,'Support',null,true)" class="addButton" *ngIf="pageConfig.canAdd">
+					<ion-col size="1" class="activity-title">
+						<p>{{'Support activities' | translate}}</p>
+						<div (click)="$event.stopPropagation();showModal(null,'Support',null,true)" class="addButton"
+							*ngIf="pageConfig.canAdd">
 							<ion-icon class="clickable" name="add-circle-outline"></ion-icon>
 						</div>
 					</ion-col>
 					<ion-col size="11" class="main-activity">
-						<ion-row class="main-activity-container" *ngFor="let act of supportActivities;let i = index">
+						<ion-row class="main-activity-container"
+							*ngFor="let act of itemsState | filter:{Type:'Support',IDParent:IDSupportActivities};let i = index">
 							<ion-col size="3" class="main-activity-title">
 								<h3 (click)="showModal(act,null,null,true)" class="clickable">{{ act.Name }}</h3>
 							</ion-col>
-							<ion-col size="8" class="main-activity-description-container" >
-								<div class="main-activity-description" *ngFor="let desc of act.Sections; let j=index">
-									<span class="clickable" (click)="$event.stopPropagation();showModal(desc,'Support',act?.Id)">{{ desc.Name }}</span>
+							<ion-col size="8" class="main-activity-description-container">
+								<div class="main-activity-description"
+									*ngFor="let desc of itemsState|filter:{Type:'Support',IDParent:act.Id}; let j=index">
+									<span class="clickable"
+										(click)="$event.stopPropagation();showModal(desc,'Support',act?.Id)">{{
+										desc.Name }}</span>
 								</div>
-								<div (click)="$event.stopPropagation();showModal(null,'Support',act?.Id)" class="addButton" *ngIf="pageConfig.canAdd && i==0">
+								<div (click)="$event.stopPropagation();showModal(null,'Support',act?.Id)"
+									class="addButton" *ngIf="pageConfig.canAdd && i==0">
 									<ion-icon class="clickable" name="add-circle-outline"></ion-icon>
 								</div>
 							</ion-col>
@@ -60,38 +126,41 @@
 					</ion-col>
 				</ion-row>
 				<ion-row style="margin-top: 16px" scrollX="true">
-					<ion-col size="1" class="activity-title"
-						><p>{{'Primary activities' | translate}}</p>
-						<div (click)="$event.stopPropagation();showModal(null,'Primary',null,true)" class="addButton" *ngIf="pageConfig.canAdd">
+					<ion-col size="1" class="activity-title">
+						<p>{{'Primary activities' | translate}}</p>
+						<div (click)="$event.stopPropagation();showModal(null,'Primary',null,true)" class="addButton"
+							*ngIf="pageConfig.canAdd">
 							<ion-icon class="clickable" name="add-circle-outline"></ion-icon>
 						</div>
 					</ion-col>
 					<ion-col size="10" class="main-activity-chevron">
-						<ion-col
-							class="chevron-container"
-							size="2"
-							*ngFor="let act of primaryActivities;let i = index"
-						>
+						<ion-col class="chevron-container" size="2"
+							*ngFor="let act of itemsState | filter:{Type:'Primary',IDParent:IDPrimaryActivities};let i = index">
 							<ion-row class="chevron-wrapper">
-								<div (click)="showModal(act,null,null,true)" class="chevron clickable"><span>{{ act.Name }}</span></div>
+								<div (click)="showModal(act,null,null,true)" class="chevron clickable"><span>{{ act.Name
+										}}</span></div>
 							</ion-row>
 							<ion-row>
 								<ul>
-									<li style="padding: 5px" *ngFor="let desc of act.Sections">
-										<span class="clickable" *ngIf="pageConfig.canEdit" (click)="$event.stopPropagation();showModal(desc,'Primary',act?.Id)">
+									<li style="padding: 5px"
+										*ngFor="let desc of itemsState|filter:{Type:'Primary',IDParent:act.Id}">
+										<span class="clickable" *ngIf="pageConfig.canEdit"
+											(click)="$event.stopPropagation();showModal(desc,'Primary',act?.Id)">
 											{{ desc.Name }}
 										</span>
-										<span  *ngIf="!pageConfig.canEdit" >{{ desc.Name }}</span>
+										<span *ngIf="!pageConfig.canEdit">{{ desc.Name }}</span>
 									</li>
 								</ul>
 							</ion-row>
-							<div (click)="$event.stopPropagation();showModal(null,'Primary',act?.Id)" class="addButton" *ngIf="pageConfig.canAdd && i==0">
+							<div (click)="$event.stopPropagation();showModal(null,'Primary',act?.Id)" class="addButton"
+								*ngIf="pageConfig.canAdd && i==0">
 								<ion-icon class="clickable" name="add-circle-outline"></ion-icon>
 							</div>
 						</ion-col>
 					</ion-col>
 				</ion-row>
 			</ion-grid>
+
 		</div>
 	</div>
 </ion-content>
