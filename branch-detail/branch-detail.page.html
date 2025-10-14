@@ -1,69 +1,95 @@
 <ion-header collapse="fade">
 	<ion-toolbar>
-		<ion-title>{{item.Name}}</ion-title>
+		<ion-segment scrollable="true" (ionChange)="segmentChange($event)" [value]="segmentView">
+			<ion-segment-button value="s1">
+				<ion-label>{{'General information' | translate}}</ion-label>
+			</ion-segment-button>
+			<ion-segment-button value="s2">
+				<ion-label>{{'Activity' | translate}}</ion-label>
+			</ion-segment-button>
+		</ion-segment>
 		<ion-buttons slot="end">
-			<ion-button title="{{'Close' | translate}}"   (click)="closeModal()" fill="clear">
+			<ion-button title="{{'Close' | translate}}" (click)="closeModal()" fill="clear">
 				<ion-icon slot="icon-only" name="close"></ion-icon>
 			</ion-button>
-		</ion-buttons>	
+		</ion-buttons>
 	</ion-toolbar>
 </ion-header>
 <ion-content appScrollbarTheme>
 	<div id="branch-detail-page" style="position: absolute"></div>
 	<div style="min-height: 0%">
-		<ion-toolbar color="primary">
-			<ion-segment scrollable="true" (ionChange)="segmentChange($event)" [value]="segmentView">
-				<ion-segment-button value="s1">
-					<ion-label>{{'General information' | translate}}</ion-label>
-				</ion-segment-button>
-				<ion-segment-button value="s2">
-					<ion-label>{{'Activity' | translate}}</ion-label>
-				</ion-segment-button>
-			</ion-segment>
-		</ion-toolbar>
+
 		<div *ngIf="segmentView=='s1'">
 			<ion-grid fixed>
 				<form [formGroup]="formGroup">
 					<ion-row>
 						<ion-col size="12" size-sm="12" size-md="6">
-							<app-form-control [field]="{ id: 'Name', label: 'Name', type: 'text', form: formGroup}"></app-form-control>
-							<app-form-control [field]="{id:'IDParent', label:'Belonged to unit',type:'ng-select-branch', dataSource:branchList,bindLabel:'Name',bindValue:'Id',form:formGroup, appendTo:'#branch-detail-page',branchConfig:{selectedBranch:env.selectedBranch}}"></app-form-control>
-							<app-form-control [field]="{id:'Type',label:'Organization level',type:'ng-select', dataSource: typeList, bindLabel:'Name', bindValue:'Code',form: formGroup, appendTo:'#branch-detail-page'}"></app-form-control>
+							<app-form-control
+								[field]="{ id: 'Name', label: 'Name', type: 'text', form: formGroup}"></app-form-control>
+							<app-form-control
+								[field]="{id:'IDParent', label:'Belonged to unit',type:'ng-select-branch', dataSource:branchList,bindLabel:'Name',bindValue:'Id',form:formGroup, appendTo:'#branch-detail-page',branchConfig:{selectedBranch:env.selectedBranch}}"></app-form-control>
+							<app-form-control
+								[field]="{id:'Type',label:'Organization level',type:'ng-select', dataSource: typeList, bindLabel:'Name', bindValue:'Code',form: formGroup, appendTo:'#branch-detail-page'}"></app-form-control>
 						</ion-col>
 						<ion-col size="12" size-sm="12" size-md="6">
-							<app-form-control [field]="{ id: 'ShortName', label: 'Short name', type: 'text', form: formGroup}"></app-form-control>
-							<app-form-control [field]="{ id: 'Remark', label: 'Description', type: 'textarea', form: formGroup }"></app-form-control>
+							<app-form-control
+								[field]="{ id: 'ShortName', label: 'Short name', type: 'text', form: formGroup}"></app-form-control>
+							<app-form-control
+								[field]="{ id: 'Remark', label: 'Description', type: 'textarea', form: formGroup }"></app-form-control>
 						</ion-col>
 					</ion-row>
 					<ion-row>
 						<ion-col>
-							<app-form-control [field]="{ id: 'Code', label: 'Code', type: 'text', form: formGroup}"></app-form-control>
-							<app-form-control *ngIf="item.Type == 'TitlePosition'" [field]="{id:'IDAdministrationManager',label:'Admistration',type:'ng-select', dataSource: branchList, bindLabel:'Name', bindValue:'Id',form: formGroup, appendTo:'#branch-detail-page'}"></app-form-control>
-							<app-form-control *ngIf="item.Type == 'TitlePosition'" [field]="{id:'IDSpecializedManagement',label:'Line manager',type:'ng-select', dataSource: branchList, bindLabel:'Name', bindValue:'Id',form: formGroup, appendTo:'#branch-detail-page'}"></app-form-control>
-							<app-form-control *ngIf="item.Type == 'TitlePosition'" [field]="{id :'IsHeadOfDepartment' , label:'Head of department', type:'checkbox', form:formGroup}"> </app-form-control>
-							<app-form-control *ngIf="item.Type == 'Company' || item.Type == 'Branch'" [field]="{ id: 'BusinessRegistrationNumber', label: 'Business registration number', type: 'text', form: formGroup}"></app-form-control>
-							<app-form-control *ngIf="item.Type == 'Company' || item.Type == 'Branch'" [field]="{id:'IssueDate',label:'Date of issue',type:'date',form:formGroup}"> </app-form-control>
-							<app-form-control *ngIf="item.Type == 'Company' || item.Type == 'Branch'" [field]="{ id: 'IssuedBy', label: 'Place of issue', type: 'text', form: formGroup}"></app-form-control>
-							<app-form-control *ngIf="item.Type == 'Company' || item.Type == 'Branch'" [field]="{ id: 'TaxCode', label: 'Tax code', type: 'text', form: formGroup}"></app-form-control>
-							<app-form-control *ngIf="item.Type != 'TitlePosition' " [field]="{ id: 'Phone', label: 'Phone number', type: 'text', form: formGroup}"></app-form-control>
-							<app-form-control *ngIf="item.Type != 'TitlePosition' " [field]="{ id: 'Phone2', label: 'Phone number 02', type: 'text', form: formGroup}"></app-form-control>
-							<app-form-control *ngIf="item.Type != 'TitlePosition' " [field]="{ id: 'Fax', label: 'Fax', type: 'text', form: formGroup}"></app-form-control>
-							<app-form-control *ngIf="item.Type != 'TitlePosition' " [field]="{ id: 'Email', label: 'Email', type: 'text', form: formGroup}"></app-form-control>
-							<app-form-control *ngIf="item.Type == 'Company' || item.Type == 'Branch' || item.Type == 'OfficeCenter' || item.Type == 'Warehouse' " [field]="{ id: 'Address', label: 'Address', type: 'text', form: formGroup}"></app-form-control>
-							<app-form-control *ngIf="item.Type == 'Branch' || item.Type == 'OfficeCenter' || item.Type == 'Warehouse' " [field]="{ id: 'TemplateHeader', label: 'Company name (on printed form)', type: 'text', form: formGroup}"></app-form-control>
-							<app-form-control *ngIf="!(item.Type == 'Team' || item.Type == 'TitlePosition')" [field]="{ id: 'LogoURL', label: 'URL Logo', type: 'text', form: formGroup}"></app-form-control>
-							<app-form-control [field]="{id:'Sort', label:'Sort', type:'number', form:formGroup}"></app-form-control>
+							<app-form-control
+								[field]="{ id: 'Code', label: 'Code', type: 'text', form: formGroup}"></app-form-control>
+							<app-form-control *ngIf="item.Type == 'TitlePosition'"
+								[field]="{id:'IDAdministrationManager',label:'Admistration',type:'ng-select', dataSource: branchList, bindLabel:'Name', bindValue:'Id',form: formGroup, appendTo:'#branch-detail-page'}"></app-form-control>
+							<app-form-control *ngIf="item.Type == 'TitlePosition'"
+								[field]="{id:'IDSpecializedManagement',label:'Line manager',type:'ng-select', dataSource: branchList, bindLabel:'Name', bindValue:'Id',form: formGroup, appendTo:'#branch-detail-page'}"></app-form-control>
+							<app-form-control *ngIf="item.Type == 'TitlePosition'"
+								[field]="{id :'IsHeadOfDepartment' , label:'Head of department', type:'checkbox', form:formGroup}">
+							</app-form-control>
+							<app-form-control *ngIf="item.Type == 'Company' || item.Type == 'Branch'"
+								[field]="{ id: 'BusinessRegistrationNumber', label: 'Business registration number', type: 'text', form: formGroup}"></app-form-control>
+							<app-form-control *ngIf="item.Type == 'Company' || item.Type == 'Branch'"
+								[field]="{id:'IssueDate',label:'Date of issue',type:'date',form:formGroup}">
+							</app-form-control>
+							<app-form-control *ngIf="item.Type == 'Company' || item.Type == 'Branch'"
+								[field]="{ id: 'IssuedBy', label: 'Place of issue', type: 'text', form: formGroup}"></app-form-control>
+							<app-form-control *ngIf="item.Type == 'Company' || item.Type == 'Branch'"
+								[field]="{ id: 'TaxCode', label: 'Tax code', type: 'text', form: formGroup}"></app-form-control>
+							<app-form-control *ngIf="item.Type != 'TitlePosition' "
+								[field]="{ id: 'Phone', label: 'Phone number', type: 'text', form: formGroup}"></app-form-control>
+							<app-form-control *ngIf="item.Type != 'TitlePosition' "
+								[field]="{ id: 'Phone2', label: 'Phone number 02', type: 'text', form: formGroup}"></app-form-control>
+							<app-form-control *ngIf="item.Type != 'TitlePosition' "
+								[field]="{ id: 'Fax', label: 'Fax', type: 'text', form: formGroup}"></app-form-control>
+							<app-form-control *ngIf="item.Type != 'TitlePosition' "
+								[field]="{ id: 'Email', label: 'Email', type: 'text', form: formGroup}"></app-form-control>
+							<app-form-control
+								*ngIf="item.Type == 'Company' || item.Type == 'Branch' || item.Type == 'OfficeCenter' || item.Type == 'Warehouse' "
+								[field]="{ id: 'Address', label: 'Address', type: 'text', form: formGroup}"></app-form-control>
+							<app-form-control
+								*ngIf="item.Type == 'Branch' || item.Type == 'OfficeCenter' || item.Type == 'Warehouse' "
+								[field]="{ id: 'TemplateHeader', label: 'Company name (on printed form)', type: 'text', form: formGroup}"></app-form-control>
+							<app-form-control *ngIf="!(item.Type == 'Team' || item.Type == 'TitlePosition')"
+								[field]="{ id: 'LogoURL', label: 'URL Logo', type: 'text', form: formGroup}"></app-form-control>
+							<app-form-control
+								[field]="{id:'Sort', label:'Sort', type:'number', form:formGroup}"></app-form-control>
 						</ion-col>
 					</ion-row>
 				</form>
 			</ion-grid>
 		</div>
 		<div *ngIf="segmentView=='s2'">
-			<app-page-message [itemsLength]="functionalMatrixList.length" [showSpinner]="pageConfig.showSpinner"></app-page-message>
+			<app-page-message [itemsLength]="functionalMatrixList.length"
+				[showSpinner]="pageConfig.showSpinner"></app-page-message>
 
 			<ion-list [inset]="true" *ngIf="functionalMatrixList.length && !showSpinner">
 				<ion-item *ngFor="let fm of functionalMatrixList">
-					<ion-label (click)="closeModal(); nav('/functional-matrix/'+formGroup.controls.IDParent.value,'forward')" class="clickable">
+					<ion-label
+						(click)="closeModal(); nav('/functional-matrix/'+formGroup.controls.IDParent.value,'forward')"
+						class="clickable">
 						{{ fm.Name }}
 						<!-- <div (click)="nav('/functional-matrix/'+formGroup.controls.IDParent.value,'forward')" class="hide-small col-id cell">
 						</div> -->
@@ -75,23 +101,24 @@
 	</div>
 </ion-content>
 <ion-footer collapse="fade">
-  <ion-toolbar>
-	<div class="footer-actions">
-		<ion-button *ngIf="!item.Id && (pageConfig.canAdd || pageConfig.canEditBranch)" (click)="saveChange()" >
-			{{'Add' | translate}} {{ item.Type == 'TitlePosition'? 'Title' : 'Unit' | translate}}
-		</ion-button>
-		<ion-button *ngIf="item.Id && (pageConfig.canEdit || pageConfig.canEditBranch)" (click)="saveChange()" [disabled]="!formGroup.dirty" >
-			{{'Save' | translate}}
-		</ion-button>
-		<ion-button (click)="refresh()"  color="warning">
-			{{'Change cancel' | translate}}
-		</ion-button>
-		<ion-button *ngIf="item.Id && pageConfig.canDelete" (click)="delete()" color="danger">
-			{{'Delete' | translate}}
-		</ion-button>
-		<ion-button *ngIf="(pageConfig.canAdd || pageConfig.canEditBranch)" (click)="saveChange(true)">
-			{{'Save and continue' | translate}} {{ item.Type == 'TitlePosition'? 'Title' : 'Unit' | translate}}
-		</ion-button>
-	 </div>
-  </ion-toolbar>
+	<ion-toolbar>
+		<div class="footer-actions">
+			<ion-button *ngIf="!item.Id && (pageConfig.canAdd || pageConfig.canEditBranch)" (click)="saveChange()">
+				{{'Add' | translate}}
+			</ion-button>
+			<ion-button *ngIf="item.Id && (pageConfig.canEdit || pageConfig.canEditBranch)" (click)="saveChange()"
+				[disabled]="!formGroup.dirty">
+				{{'Save' | translate}}
+			</ion-button>
+			<ion-button (click)="refresh()" color="warning">
+				{{'Change cancel' | translate}}
+			</ion-button>
+			<ion-button *ngIf="item.Id && pageConfig.canDelete" (click)="delete()" color="danger">
+				{{'Delete' | translate}}
+			</ion-button>
+			<ion-button *ngIf="(pageConfig.canAdd || pageConfig.canEditBranch)" (click)="saveChange(true)">
+				{{'Save and continue' | translate}}
+			</ion-button>
+		</div>
+	</ion-toolbar>
 </ion-footer>
