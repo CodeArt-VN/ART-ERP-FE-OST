@@ -15,7 +15,7 @@ import { NavigationExtras, Router } from '@angular/router';
 })
 export class BranchPage extends PageBase {
 	itemsState: any = [];
-	isAllRowOpened = true;
+	isAllRowOpened = false;
 
 	constructor(
 		public pageProvider: BRA_BranchProvider,
@@ -48,6 +48,10 @@ export class BranchPage extends PageBase {
 			this.itemsState = resp;
 		});
 		super.loadedData(event);
+		setTimeout(() => {
+			let i = this.itemsState[0];
+			if (i) this.toggleRow(this.itemsState, i, true);
+		}, 100);
 	}
 
 	getBranchType(branch) {
