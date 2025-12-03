@@ -6,6 +6,7 @@ import { lib } from 'src/app/services/static/global-functions';
 import { BRA_BranchProvider } from 'src/app/services/static/services.service';
 import { BranchDetailPage } from '../branch-detail/branch-detail.page';
 import { NavigationExtras, Router } from '@angular/router';
+import { PopoverPage } from '../../SYS/popover/popover.page';
 
 @Component({
 	selector: 'app-branch',
@@ -129,4 +130,35 @@ export class BranchPage extends PageBase {
 		};
 		this.showModal(newItem);
 	}
+
+	async changeBranch(ev: any) {
+			if (0 && !this.pageConfig.canChangeBranch) {
+				return;
+			}
+			let popover = await this.popoverCtrl.create({
+				component: PopoverPage,
+				componentProps: {
+					popConfig: {
+						isShowBranchSelect: true,
+						submitButtonLabel: 'Select unit...',
+					},
+				},
+				event: ev,
+				cssClass: 'w300',
+				translucent: true,
+			});
+			popover.onDidDismiss().then((result: any) => {
+				if (result.data) {
+					this.pageProvider.commonService.connect('GET', 'BRA/Branch/MoveBranch', {
+							Ids: this.selectedItems.map((m) => m.Id),
+							IDBranch: result.data.branch.Id,
+						}).toPromise()
+						.then((_) => {
+							this.env.showMessage('Unit changed', 'success');
+							this.refresh();
+						});
+				}
+			});
+			return await popover.present();
+		}
 }
