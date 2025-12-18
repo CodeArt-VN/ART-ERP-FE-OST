@@ -64,7 +64,6 @@ export class BranchDetailPage extends PageBase {
 			IDAdministrationManager: [''],
 			IDSpecializedManagement: [''],
 			Sort: [''],
-			IsDisabled: new FormControl({ value: '', disabled: true }),
 			Website: [''],
 			BankAccount: [''],
 			TemplateHeader: [''],
@@ -75,6 +74,12 @@ export class BranchDetailPage extends PageBase {
 			ImageURL: [''],
 			BackgroundColor: [''],
 			IsHeadOfDepartment: [''],
+			IsDisabled: new FormControl({ value: '', disabled: true }),
+			IsDeleted: new FormControl({ value: '', disabled: true }),
+			CreatedBy: new FormControl({ value: '', disabled: true }),
+			CreatedDate: new FormControl({ value: '', disabled: true }),
+			ModifiedBy: new FormControl({ value: '', disabled: true }),
+			ModifiedDate: new FormControl({ value: '', disabled: true }),
 		});
 	}
 	branchList = [];
@@ -88,7 +93,8 @@ export class BranchDetailPage extends PageBase {
 		});
 
 		if (this.navParams) {
-			this.branchList = JSON.parse(JSON.stringify(this.navParams.data.items));
+			this.branchList = lib.cloneObject(this.navParams.data.items);
+			//this.branchList = JSON.parse(JSON.stringify(this.navParams.data.items));
 			// this.branchList.forEach((i) => {
 			// 	let prefix = '';
 			// 	for (let j = 1; j < i.level; j++) {
