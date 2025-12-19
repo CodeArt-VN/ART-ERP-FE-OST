@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header collapse="fade">
 	<ion-toolbar>
 		<ion-title>{{currentBranch?.Name}}</ion-title>
 		<ion-buttons slot="primary">
@@ -11,7 +11,7 @@
 		</ion-buttons>
 	</ion-toolbar>
 </ion-header>
-<ion-content appScrollbarTheme class="ion-padding" fullscreen>
+<ion-content appScrollbarTheme class="ion-padding">
 	<div class="main-view" *ngIf="pageConfig.showSpinner == false">
 		<div class="row-full shadow full-screen ion-padding">
 			<ion-grid fixed>
@@ -45,10 +45,21 @@
 		</div>
 	</div>
 </ion-content>
-<ion-footer>
+<ion-footer collapse="fade">
 	<ion-toolbar>
-		<ion-button size="medium" slot="end" (click)="addFormGroup({})">{{'Add' | translate}}</ion-button>
-		<ion-button size="medium" slot="end" *ngIf="pageConfig.canAdd || pageConfig.canEdit" (click)="saveChange()">{{'Save' | translate}}</ion-button>
-		<ion-button size="medium" slot="end" *ngIf="pageConfig.canAdd || pageConfig.canEdit" (click)="saveChange(true)">{{'Save and continue' | translate}}</ion-button>
+		<div slot="start">
+        </div>
+		<div slot="end">
+			<ion-button [strong]="true" (click)="addFormGroup({})">
+				{{'Add' | translate}}
+			</ion-button>
+			<ion-button [strong]="true" *ngIf="pageConfig.canAdd || pageConfig.canEdit" (click)="saveChange()">
+				{{'Save' | translate}}
+			</ion-button>	
+            <ion-button fill="outline" color="warning" (click)="closeModal()" >
+                {{'Cancel' | translate}}
+            </ion-button>
+        </div>
+		
 	</ion-toolbar>
 </ion-footer>

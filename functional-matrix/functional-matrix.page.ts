@@ -114,7 +114,7 @@ export class FunctionalMatrixPage extends PageBase {
 				valueChain: desc,
 				branch: branch,
 			},
-			cssClass: 'my-custom-class',
+			cssClass: 'modal90vh',
 		});
 		await modal.present();
 		const { data } = await modal.onWillDismiss();
@@ -155,7 +155,7 @@ export class FunctionalMatrixPage extends PageBase {
 				id: i?.Id,
 				isBlockBelong: isblockBelong,
 			},
-			cssClass: 'my-custom-class',
+			cssClass: 'modal90vh',
 		});
 		await modal.present();
 		const { data } = await modal.onWillDismiss();
@@ -170,7 +170,7 @@ export class FunctionalMatrixPage extends PageBase {
 				item: i,
 				id: i.Id,
 			},
-			cssClass: 'my-custom-class',
+			cssClass: 'modal90vh',
 		});
 		await modal.present();
 		const { data } = await modal.onWillDismiss();

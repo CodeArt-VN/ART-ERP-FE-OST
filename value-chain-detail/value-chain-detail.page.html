@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header collapse="fade">
 	<ion-toolbar>
 		<ion-title>{{item.Name}}</ion-title>
 
@@ -12,7 +12,7 @@
 		</ion-buttons>
 	</ion-toolbar>
 </ion-header>
-<ion-content appScrollbarTheme class="ion-padding" fullscreen>
+<ion-content appScrollbarTheme class="ion-padding">
 	<form [formGroup]="formGroup">
 		<ion-grid fixed>
 			<ion-row>
@@ -48,10 +48,27 @@
 	</form>
 </ion-content>
 <ion-footer>
-  <ion-toolbar>
-	<ion-button slot="end" *ngIf="!item.Id && pageConfig.canAdd" (click)="saveChange()">{{'Add' | translate}}</ion-button>
-	<ion-button slot="end" *ngIf="item.Id && pageConfig.canEdit" (click)="saveChange()" [disabled]="!formGroup.dirty">{{'Save' | translate}}</ion-button>
-	<ion-button slot="end" *ngIf="pageConfig.canEdit || pageConfig.canAdd" (click)="saveChange(true)" [disabled]="!formGroup.dirty">{{'Save and continue' | translate}}</ion-button>
-	<ion-button slot="end" *ngIf="item.Id && pageConfig.canDelete" (click)="delete()" color="danger">{{'Delete' | translate}}</ion-button>
+  <ion-toolbar collapse="fade">
+	<div slot="start">
+			<ion-button [strong]="true" *ngIf="pageConfig.canEdit || pageConfig.canAdd" (click)="saveChange(true)" [disabled]="!formGroup.dirty">
+				{{'Save and continue' | translate}}
+			</ion-button>
+        </div>
+		
+		<div slot="end">
+			<ion-button [strong]="true" *ngIf="!item.Id && pageConfig.canAdd" (click)="saveChange()">
+				{{'Add' | translate}}
+			</ion-button>
+			<ion-button [strong]="true" *ngIf="item.Id && pageConfig.canEdit" (click)="saveChange()" [disabled]="!formGroup.dirty">
+				{{'Save' | translate}}
+			</ion-button>
+			<ion-button fill="outline" *ngIf="item.Id && pageConfig.canDelete" (click)="delete()" color="danger">
+				{{'Delete' | translate}}
+			</ion-button>
+            <ion-button fill="outline" color="warning" (click)="closeModal()" >
+                {{'Cancel' | translate}}
+            </ion-button>
+        </div>
+	
   </ion-toolbar>
 </ion-footer>

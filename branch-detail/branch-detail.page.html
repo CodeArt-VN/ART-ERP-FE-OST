@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header collapse="fade">
 	<ion-toolbar>
 		<ion-segment scrollable="true" (ionChange)="segmentChange($event)" [value]="segmentView">
 			<ion-segment-button value="s1">
@@ -115,23 +115,30 @@
 		</div>
 	</div>
 </ion-content>
-<ion-footer>
+<ion-footer collapse="fade">
 	<ion-toolbar>
-		<ion-button slot="end" *ngIf="!item.Id && (pageConfig.canAdd || pageConfig.canEditBranch)" (click)="saveChange()">
-			{{'Add' | translate}}
-		</ion-button>
-		<ion-button slot="end" *ngIf="item.Id && (pageConfig.canEdit || pageConfig.canEditBranch)" (click)="saveChange()"
-			[disabled]="!formGroup.dirty">
-			{{'Save' | translate}}
-		</ion-button>
-		<ion-button slot="end" (click)="refresh()" color="warning">
-			{{'Change cancel' | translate}}
-		</ion-button>
-		<ion-button slot="end" *ngIf="item.Id && pageConfig.canDelete" (click)="delete()" color="danger">
-			{{'Delete' | translate}}
-		</ion-button>
-		<ion-button slot="start" *ngIf="(pageConfig.canAdd || pageConfig.canEditBranch)" (click)="saveChange(true)">
-			{{'Save and continue' | translate}}
-		</ion-button>
+		<div slot="start">
+			<ion-button [strong]="true" *ngIf="(pageConfig.canAdd || pageConfig.canEditBranch)" (click)="saveChange(true)">
+				{{'Save and continue' | translate}}
+			</ion-button>
+		</div>
+		<div slot="end">
+			<ion-button [strong]="true" *ngIf="!item.Id && (pageConfig.canAdd || pageConfig.canEditBranch)" (click)="saveChange()">
+				{{'Add' | translate}}
+			</ion-button>
+			<ion-button [strong]="true" *ngIf="item.Id && (pageConfig.canEdit || pageConfig.canEditBranch)" (click)="saveChange()" [disabled]="!formGroup.dirty">
+				{{'Save' | translate}}
+			</ion-button>
+			<ion-button fill="outline" (click)="refresh()" color="warning">
+				{{'Change cancel' | translate}}
+			</ion-button>
+			<ion-button fill="outline" *ngIf="item.Id && pageConfig.canDelete" (click)="delete()" color="danger">
+				{{'Delete' | translate}}
+			</ion-button>
+			<ion-button fill="outline" (click)="closeModal()" color="warning">
+				{{'Cancel' | translate}}
+			</ion-button>
+		</div>
+		
 	</ion-toolbar>
 </ion-footer>
