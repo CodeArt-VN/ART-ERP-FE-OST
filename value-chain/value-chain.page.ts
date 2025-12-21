@@ -129,7 +129,7 @@ export class ValueChainPage extends PageBase {
 				id: i?.Id,
 				isBlockBelong: isblockBelong
 			},
-			cssClass: 'my-custom-class',
+			cssClass: 'modal90vh',
 		});
 		await modal.present();
 		const { data } = await modal.onWillDismiss();
