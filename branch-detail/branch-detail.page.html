@@ -40,52 +40,52 @@
 						<ion-col>
 							<app-form-control [field]="{ id: 'Code', label: 'Code', type: 'text', form: formGroup}"></app-form-control>
 							<app-form-control
-								*ngIf="item.Type == 'TitlePosition'"
+								*ngIf="formGroup.get('Type')?.value == 'TitlePosition'"
 								[field]="{id:'IDAdministrationManager',label:'Admistration',type:'ng-select', dataSource: branchList, bindLabel:'Name', bindValue:'Id',form: formGroup, appendTo:'#branch-detail-page'}"
 							></app-form-control>
 							<app-form-control
-								*ngIf="item.Type == 'TitlePosition'"
+								*ngIf="formGroup.get('Type')?.value == 'TitlePosition'"
 								[field]="{id:'IDSpecializedManagement',label:'Line manager',type:'ng-select', dataSource: branchList, bindLabel:'Name', bindValue:'Id',form: formGroup, appendTo:'#branch-detail-page'}"
 							></app-form-control>
 							<app-form-control
-								*ngIf="item.Type == 'TitlePosition'"
+								*ngIf="formGroup.get('Type')?.value == 'TitlePosition'"
 								[field]="{id :'IsHeadOfDepartment' , label:'Head of department', type:'checkbox', form:formGroup}"
 							>
 							</app-form-control>
 							<app-form-control
-								*ngIf="item.Type == 'Company' || item.Type == 'Branch'"
+								*ngIf="formGroup.get('Type')?.value == 'Company' || formGroup.get('Type')?.value == 'Branch'"
 								[field]="{ id: 'BusinessRegistrationNumber', label: 'Business registration number', type: 'text', form: formGroup}"
 							></app-form-control>
-							<app-form-control *ngIf="item.Type == 'Company' || item.Type == 'Branch'" [field]="{id:'IssueDate',label:'Date of issue',type:'date',form:formGroup}">
+							<app-form-control *ngIf="formGroup.get('Type')?.value == 'Company' || formGroup.get('Type')?.value == 'Branch'" [field]="{id:'IssueDate',label:'Date of issue',type:'date',form:formGroup}">
 							</app-form-control>
 							<app-form-control
-								*ngIf="item.Type == 'Company' || item.Type == 'Branch'"
+								*ngIf="formGroup.get('Type')?.value == 'Company' || formGroup.get('Type')?.value == 'Branch'"
 								[field]="{ id: 'IssuedBy', label: 'Place of issue', type: 'text', form: formGroup}"
 							></app-form-control>
 							<app-form-control
-								*ngIf="item.Type == 'Company' || item.Type == 'Branch'"
+								*ngIf="formGroup.get('Type')?.value == 'Company' || formGroup.get('Type')?.value == 'Branch'"
 								[field]="{ id: 'TaxCode', label: 'Tax code', type: 'text', form: formGroup}"
 							></app-form-control>
 							<app-form-control
-								*ngIf="item.Type != 'TitlePosition' "
+								*ngIf="formGroup.get('Type')?.value != 'TitlePosition' "
 								[field]="{ id: 'Phone', label: 'Phone number', type: 'text', form: formGroup}"
 							></app-form-control>
 							<app-form-control
-								*ngIf="item.Type != 'TitlePosition' "
+								*ngIf="formGroup.get('Type')?.value != 'TitlePosition' "
 								[field]="{ id: 'Phone2', label: 'Phone number 02', type: 'text', form: formGroup}"
 							></app-form-control>
-							<app-form-control *ngIf="item.Type != 'TitlePosition' " [field]="{ id: 'Fax', label: 'Fax', type: 'text', form: formGroup}"></app-form-control>
-							<app-form-control *ngIf="item.Type != 'TitlePosition' " [field]="{ id: 'Email', label: 'Email', type: 'text', form: formGroup}"></app-form-control>
+							<app-form-control *ngIf="formGroup.get('Type')?.value != 'TitlePosition' " [field]="{ id: 'Fax', label: 'Fax', type: 'text', form: formGroup}"></app-form-control>
+							<app-form-control *ngIf="formGroup.get('Type')?.value != 'TitlePosition' " [field]="{ id: 'Email', label: 'Email', type: 'text', form: formGroup}"></app-form-control>
 							<app-form-control
-								*ngIf="item.Type == 'Company' || item.Type == 'Branch' || item.Type == 'OfficeCenter' || item.Type == 'Warehouse' "
+								*ngIf="formGroup.get('Type')?.value == 'Company' || formGroup.get('Type')?.value == 'Branch' || formGroup.get('Type')?.value == 'OfficeCenter' || formGroup.get('Type')?.value == 'Warehouse' "
 								[field]="{ id: 'Address', label: 'Address', type: 'text', form: formGroup}"
 							></app-form-control>
 							<app-form-control
-								*ngIf="item.Type == 'Branch' || item.Type == 'OfficeCenter' || item.Type == 'Warehouse' "
+								*ngIf="formGroup.get('Type')?.value == 'Branch' || formGroup.get('Type')?.value == 'OfficeCenter' || formGroup.get('Type')?.value == 'Warehouse' "
 								[field]="{ id: 'TemplateHeader', label: 'Company name (on printed form)', type: 'text', form: formGroup}"
 							></app-form-control>
 							<app-form-control
-								*ngIf="!(item.Type == 'Team' || item.Type == 'TitlePosition')"
+								*ngIf="!(formGroup.get('Type')?.value == 'Team' || formGroup.get('Type')?.value == 'TitlePosition')"
 								[field]="{ id: 'LogoURL', label: 'URL Logo', type: 'text', form: formGroup}"
 							></app-form-control>
 							<app-form-control [field]="{id:'Sort', label:'Sort', type:'number', form:formGroup}"></app-form-control>
