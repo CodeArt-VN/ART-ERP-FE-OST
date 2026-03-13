@@ -17,6 +17,7 @@ import { PopoverPage } from '../../SYS/popover/popover.page';
 export class BranchPage extends PageBase {
 	itemsState: any = [];
 	isAllRowOpened = false;
+	noCheckDirty = false;
 
 	constructor(
 		public pageProvider: BRA_BranchProvider,
@@ -132,33 +133,35 @@ export class BranchPage extends PageBase {
 	}
 
 	async changeBranch(ev: any) {
-			if (0 && !this.pageConfig.canChangeBranch) {
-				return;
-			}
-			let popover = await this.popoverCtrl.create({
-				component: PopoverPage,
-				componentProps: {
-					popConfig: {
-						isShowBranchSelect: true,
-						submitButtonLabel: 'Select unit...',
-					},
-				},
-				event: ev,
-				cssClass: 'w300',
-				translucent: true,
-			});
-			popover.onDidDismiss().then((result: any) => {
-				if (result.data) {
-					this.pageProvider.commonService.connect('GET', 'BRA/Branch/MoveBranch', {
-							Ids: this.selectedItems.map((m) => m.Id),
-							IDBranch: result.data.branch.Id,
-						}).toPromise()
-						.then((_) => {
-							this.env.showMessage('Unit changed', 'success');
-							this.refresh();
-						});
-				}
-			});
-			return await popover.present();
+		if (0 && !this.pageConfig.canChangeBranch) {
+			return;
 		}
+		let popover = await this.popoverCtrl.create({
+			component: PopoverPage,
+			componentProps: {
+				popConfig: {
+					isShowBranchSelect: true,
+					submitButtonLabel: 'Select unit...',
+				},
+			},
+			event: ev,
+			cssClass: 'w300',
+			translucent: true,
+		});
+		popover.onDidDismiss().then((result: any) => {
+			if (result.data) {
+				this.pageProvider.commonService
+					.connect('GET', 'BRA/Branch/MoveBranch', {
+						Ids: this.selectedItems.map((m) => m.Id),
+						IDBranch: result.data.branch.Id,
+					})
+					.toPromise()
+					.then((_) => {
+						this.env.showMessage('Unit changed', 'success');
+						this.refresh();
+					});
+			}
+		});
+		return await popover.present();
+	}
 }

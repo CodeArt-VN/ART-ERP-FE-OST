@@ -17,9 +17,9 @@
 			<ion-grid fixed>
 				<ion-row class="hr-group" *ngFor="let fg of formArray.controls; let i = index">
 					<ion-col size-xs="12" size-sm="12" size-md="12" size-lg="12" size-xl="12">
-						<app-form-control [field]="{id:'Name', label: 'Activity', type : 'textarea', form: fg}"></app-form-control>
+						<app-form-control [field]="{id:'Name', label: 'Activity', type : 'textarea', form: $any(fg)}"></app-form-control>
 						<ion-list>
-							<form [formGroup]="fg">
+							<form [formGroup]="$any(fg)">
 								<ion-radio-group [formControlName]="'Type'">
 									<ion-item *ngFor="let type of typeList" lines="none">
 										<ion-radio slot="start" [value]="type.Code"> </ion-radio>

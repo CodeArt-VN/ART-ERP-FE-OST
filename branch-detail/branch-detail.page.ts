@@ -158,4 +158,7 @@ export class BranchDetailPage extends PageBase {
 			});
 		}
 	}
+
+	//TODO: Remove empty functions
+	showSpinner = false;
 }
