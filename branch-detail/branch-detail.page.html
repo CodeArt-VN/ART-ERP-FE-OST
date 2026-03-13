@@ -1,4 +1,4 @@
-<ion-header collapse="fade">
+<ion-header [translucent]="true" collapse="fade">
 	<ion-toolbar>
 		<ion-segment scrollable="true" (ionChange)="segmentChange($event)" [value]="segmentView">
 			<ion-segment-button value="s1">
@@ -15,7 +15,7 @@
 		</ion-buttons>
 	</ion-toolbar>
 </ion-header>
-<ion-content appScrollbarTheme>
+<ion-content [fullscreen]="true" appScrollbarTheme>
 	<div id="branch-detail-page" style="position: absolute"></div>
 	<div style="min-height: 0%">
 		<div *ngIf="segmentView=='s1'">

@@ -1,4 +1,4 @@
-<ion-header collapse="fade">
+<ion-header [translucent]="true" collapse="fade">
 	<ion-toolbar>
 		<ion-title>{{currentBranch?.Name}}</ion-title>
 		<ion-buttons slot="primary">
@@ -11,7 +11,7 @@
 		</ion-buttons>
 	</ion-toolbar>
 </ion-header>
-<ion-content appScrollbarTheme class="ion-padding">
+<ion-content [fullscreen]="true" appScrollbarTheme class="ion-padding">
 	<div class="main-view" *ngIf="pageConfig.showSpinner == false">
 		<div class="row-full shadow full-screen ion-padding">
 			<ion-grid fixed>

@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header [translucent]="true">
 	<app-toolbar [page]="this">
 		<ion-button class="clickable" title="{{'Add' | translate}}" (click)="presentAddNewPopover($event)" *ngIf="
 	(pageConfig.canAdd && pageConfig.ShowAddNew ) ">
@@ -10,7 +10,7 @@
 		</ion-button>
 		<ion-popover #addNewPopover [isOpen]="isOpenAddNewPopover" (didDismiss)="isOpenAddNewPopover = false">
 			<ng-template>
-				<ion-content appScrollbarTheme scroll-y="false" scroll-x="true">
+				<ion-content [fullscreen]="true" appScrollbarTheme scroll-y="false" scroll-x="true">
 					<ion-list lines="none">
 						<ion-item [button]="true" [detail]="false" (click)="addNewPopover.dismiss() ;add(true) "
 							title="{{'Add' | translate}}">
@@ -30,7 +30,7 @@
 		</ion-popover>
 	</app-toolbar>
 </ion-header>
-<ion-content appScrollbarTheme class="scrollx" scrollX="true" class="left" forceOverscroll="false">
+<ion-content [fullscreen]="true" appScrollbarTheme class="scrollx" scrollX="true" class="left" forceOverscroll="false">
 	<app-page-title class="ion-padding safe-max-width" [pageConfig]="pageConfig"></app-page-title>
 	
 	<section class="table" *ngIf="viewTree">
