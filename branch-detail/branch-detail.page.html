@@ -15,10 +15,10 @@
 		</ion-buttons>
 	</ion-toolbar>
 </ion-header>
-<ion-content [fullscreen]="true" appScrollbarTheme>
+<ion-content [fullscreen]="true" appScrollbarTheme class="ion-padding-horizontal">
 	<div id="branch-detail-page" style="position: absolute"></div>
-	<div style="min-height: 0%">
-		<div *ngIf="segmentView=='s1'">
+	<div class="main-view" *ngIf="item && pageConfig.showSpinner==false">
+		<div class="row-full shadow full-screen" *ngIf="segmentView=='s1'">
 			<ion-grid fixed>
 				<form [formGroup]="formGroup">
 					<ion-row>
@@ -56,7 +56,10 @@
 								*ngIf="formGroup.get('Type')?.value == 'Company' || formGroup.get('Type')?.value == 'Branch'"
 								[field]="{ id: 'BusinessRegistrationNumber', label: 'Business registration number', type: 'text', form: formGroup}"
 							></app-form-control>
-							<app-form-control *ngIf="formGroup.get('Type')?.value == 'Company' || formGroup.get('Type')?.value == 'Branch'" [field]="{id:'IssueDate',label:'Date of issue',type:'date',form:formGroup}">
+							<app-form-control
+								*ngIf="formGroup.get('Type')?.value == 'Company' || formGroup.get('Type')?.value == 'Branch'"
+								[field]="{id:'IssueDate',label:'Date of issue',type:'date',form:formGroup}"
+							>
 							</app-form-control>
 							<app-form-control
 								*ngIf="formGroup.get('Type')?.value == 'Company' || formGroup.get('Type')?.value == 'Branch'"
@@ -74,8 +77,14 @@
 								*ngIf="formGroup.get('Type')?.value != 'TitlePosition' "
 								[field]="{ id: 'Phone2', label: 'Phone number 02', type: 'text', form: formGroup}"
 							></app-form-control>
-							<app-form-control *ngIf="formGroup.get('Type')?.value != 'TitlePosition' " [field]="{ id: 'Fax', label: 'Fax', type: 'text', form: formGroup}"></app-form-control>
-							<app-form-control *ngIf="formGroup.get('Type')?.value != 'TitlePosition' " [field]="{ id: 'Email', label: 'Email', type: 'text', form: formGroup}"></app-form-control>
+							<app-form-control
+								*ngIf="formGroup.get('Type')?.value != 'TitlePosition' "
+								[field]="{ id: 'Fax', label: 'Fax', type: 'text', form: formGroup}"
+							></app-form-control>
+							<app-form-control
+								*ngIf="formGroup.get('Type')?.value != 'TitlePosition' "
+								[field]="{ id: 'Email', label: 'Email', type: 'text', form: formGroup}"
+							></app-form-control>
 							<app-form-control
 								*ngIf="formGroup.get('Type')?.value == 'Company' || formGroup.get('Type')?.value == 'Branch' || formGroup.get('Type')?.value == 'OfficeCenter' || formGroup.get('Type')?.value == 'Warehouse' "
 								[field]="{ id: 'Address', label: 'Address', type: 'text', form: formGroup}"
@@ -121,8 +130,9 @@
 			</ion-list>
 		</div>
 	</div>
+	<app-page-message [itemsLength]="item? 1: 0" [showSpinner]="pageConfig.showSpinner"></app-page-message>
 </ion-content>
-<ion-footer collapse="fade">
+<ion-footer translucent="true" collapse="fade">
 	<ion-toolbar>
 		<div slot="start">
 			<ion-button fill="outline" *ngIf="item.Id && pageConfig.canDelete" (click)="delete()" color="danger"> {{'Delete' | translate}} </ion-button>

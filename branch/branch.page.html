@@ -1,10 +1,8 @@
 <ion-header [translucent]="true">
 	<app-toolbar [page]="this">
-		<ion-toolbar>
-			<ion-button (click)="printQRCode()" class="ion-hide-sm-down" *ngIf="selectedItems.length>0" title="{{'Print QR code' | translate}}">
-				<ion-icon name="qr-code-outline"></ion-icon>
-			</ion-button>
-		</ion-toolbar>
+		<ion-button (click)="printQRCode()" class="ion-hide-sm-down" *ngIf="selectedItems.length>0" title="{{'Print QR code' | translate}}">
+			<ion-icon name="qr-code-outline"></ion-icon>
+		</ion-button>
 	</app-toolbar>
 </ion-header>
 
@@ -74,7 +72,7 @@
 								<ion-icon color="warning" class="min-btn" name="archive"></ion-icon
 							></span>
 						</span>
-							&nbsp;
+						&nbsp;
 
 						<div *ngIf="i.HasChild">
 							<a [ngClass]="{ 'no-check-dirty': noCheckDirty }" class="clickable" [routerLink]="['/functional-matrix/' + i.Id]" (mousedown)="$event.stopPropagation()"
