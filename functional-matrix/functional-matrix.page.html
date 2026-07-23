@@ -12,7 +12,7 @@
 
 		<ion-popover #addNewPopover [isOpen]="isOpenAddNewPopover" (didDismiss)="isOpenAddNewPopover = false">
 			<ng-template>
-				<ion-content [fullscreen]="true" appScrollbarTheme scroll-y="false" scroll-x="true">
+				<ion-content [fullscreen]="true" appScrollbarTheme scroll-y="false" class="scrollx">
 					<ion-list lines="none">
 						<ion-item [button]="true" [detail]="false" (click)="addNewPopover.dismiss() ;addBranch() " title="{{'Add branch' | translate}}">
 							<!-- && selectedItems?.length  == 1 -->
