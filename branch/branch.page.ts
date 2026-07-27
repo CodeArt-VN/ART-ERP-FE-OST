@@ -97,7 +97,7 @@ export class BranchPage extends PageBase {
 			.catch((err) => {
 				console.log(err);
 				if (err.message != null) this.env.showMessage(err.message, 'danger');
-				else this.env.showMessage('Không tạo được mã, xin vui lòng kiểm tra lại.', 'danger');
+				else this.env.showMessage('Can not create the code, please check again', 'danger');
 			});
 	}
 
