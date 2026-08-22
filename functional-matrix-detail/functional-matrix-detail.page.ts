@@ -105,7 +105,7 @@ export class FunctionalMatrixDetailPage extends PageBase {
 				const translationPromises = invalidControls.map((control) => this.env.translateResource(control));
 				await Promise.all(translationPromises).then((values) => {
 					let invalidControls = values;
-					this.env.showMessage('Please recheck control(s): {{value}}', 'warning', invalidControls.join(' | '));
+					this.env.showMessage('Please recheck control(s): {value}', 'warning', invalidControls.join(' | '));
 				});
 			} else {
 				let submitValue = this.getDirtyValues(g);
